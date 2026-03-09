@@ -1,0 +1,762 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Инструкция: Подключение MAX к Teletype — Маршал</title>
+    <style>
+        :root {
+            --primary: #2563eb;
+            --primary-light: #dbeafe;
+            --accent: #f59e0b;
+            --accent-light: #fef3c7;
+            --success: #10b981;
+            --success-light: #d1fae5;
+            --danger: #ef4444;
+            --danger-light: #fee2e2;
+            --gray-50: #f9fafb;
+            --gray-100: #f3f4f6;
+            --gray-200: #e5e7eb;
+            --gray-300: #d1d5db;
+            --gray-500: #6b7280;
+            --gray-700: #374151;
+            --gray-900: #111827;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.6;
+            color: var(--gray-900);
+            background: var(--gray-50);
+        }
+
+        .header {
+            background: linear-gradient(135deg, #1e40af 0%, #3b82f6 100%);
+            color: white;
+            padding: 40px 20px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 28px;
+            margin-bottom: 8px;
+            font-weight: 700;
+        }
+
+        .header p {
+            font-size: 16px;
+            opacity: 0.9;
+        }
+
+        .badge {
+            display: inline-block;
+            background: rgba(255,255,255,0.2);
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 13px;
+            margin-top: 12px;
+        }
+
+        .container {
+            max-width: 720px;
+            margin: 0 auto;
+            padding: 32px 20px;
+        }
+
+        .overview {
+            background: white;
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 32px;
+            border: 1px solid var(--gray-200);
+        }
+
+        .overview h2 {
+            font-size: 20px;
+            margin-bottom: 12px;
+            color: var(--gray-900);
+        }
+
+        .overview p {
+            color: var(--gray-700);
+            margin-bottom: 8px;
+        }
+
+        .overview ul {
+            margin-left: 20px;
+            color: var(--gray-700);
+        }
+
+        .overview ul li {
+            margin-bottom: 4px;
+        }
+
+        .time-estimate {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: var(--accent-light);
+            color: #92400e;
+            padding: 6px 14px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            margin-top: 12px;
+        }
+
+        .phase {
+            margin-bottom: 40px;
+        }
+
+        .phase-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .phase-number {
+            background: var(--primary);
+            color: white;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 16px;
+            flex-shrink: 0;
+        }
+
+        .phase-title {
+            font-size: 22px;
+            font-weight: 700;
+            color: var(--gray-900);
+        }
+
+        .step {
+            background: white;
+            border-radius: 12px;
+            padding: 20px 24px;
+            margin-bottom: 16px;
+            border: 1px solid var(--gray-200);
+            position: relative;
+        }
+
+        .step-number {
+            position: absolute;
+            top: -10px;
+            left: 20px;
+            background: var(--primary);
+            color: white;
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 13px;
+        }
+
+        .step h3 {
+            font-size: 17px;
+            margin-bottom: 8px;
+            color: var(--gray-900);
+            padding-top: 4px;
+        }
+
+        .step p {
+            color: var(--gray-700);
+            margin-bottom: 8px;
+        }
+
+        .step-path {
+            display: inline-block;
+            background: var(--gray-100);
+            border: 1px solid var(--gray-200);
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-family: 'SF Mono', 'Monaco', 'Inconsolata', 'Fira Mono', monospace;
+            font-size: 14px;
+            color: var(--gray-900);
+            margin: 8px 0;
+            word-break: break-all;
+        }
+
+        .step-visual {
+            background: var(--gray-100);
+            border-radius: 8px;
+            padding: 16px 20px;
+            margin: 12px 0;
+            border: 1px dashed var(--gray-300);
+        }
+
+        .step-visual .screen-title {
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: var(--gray-500);
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+
+        .step-visual .screen-content {
+            font-family: 'SF Mono', 'Monaco', 'Inconsolata', 'Fira Mono', monospace;
+            font-size: 14px;
+            line-height: 1.8;
+            color: var(--gray-900);
+        }
+
+        .step-visual .screen-content .highlight {
+            background: var(--accent-light);
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: 600;
+        }
+
+        .step-visual .screen-content .btn {
+            display: inline-block;
+            background: var(--primary);
+            color: white;
+            padding: 4px 12px;
+            border-radius: 6px;
+            font-size: 13px;
+        }
+
+        .warning {
+            background: var(--danger-light);
+            border: 1px solid #fca5a5;
+            border-radius: 8px;
+            padding: 14px 18px;
+            margin: 12px 0;
+            color: #991b1b;
+            font-size: 14px;
+        }
+
+        .warning strong {
+            display: block;
+            margin-bottom: 4px;
+        }
+
+        .tip {
+            background: var(--success-light);
+            border: 1px solid #6ee7b7;
+            border-radius: 8px;
+            padding: 14px 18px;
+            margin: 12px 0;
+            color: #065f46;
+            font-size: 14px;
+        }
+
+        .tip strong {
+            display: block;
+            margin-bottom: 4px;
+        }
+
+        .info {
+            background: var(--primary-light);
+            border: 1px solid #93c5fd;
+            border-radius: 8px;
+            padding: 14px 18px;
+            margin: 12px 0;
+            color: #1e3a5f;
+            font-size: 14px;
+        }
+
+        .info strong {
+            display: block;
+            margin-bottom: 4px;
+        }
+
+        .connector {
+            display: flex;
+            justify-content: center;
+            padding: 8px 0;
+        }
+
+        .connector .arrow {
+            width: 2px;
+            height: 24px;
+            background: var(--gray-300);
+            position: relative;
+        }
+
+        .connector .arrow::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: -4px;
+            width: 0;
+            height: 0;
+            border-left: 5px solid transparent;
+            border-right: 5px solid transparent;
+            border-top: 6px solid var(--gray-300);
+        }
+
+        .checklist {
+            background: white;
+            border-radius: 12px;
+            padding: 24px;
+            margin-top: 32px;
+            border: 2px solid var(--success);
+        }
+
+        .checklist h2 {
+            color: var(--success);
+            margin-bottom: 16px;
+            font-size: 20px;
+        }
+
+        .checklist label {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            padding: 8px 0;
+            cursor: pointer;
+            color: var(--gray-700);
+            font-size: 15px;
+        }
+
+        .checklist input[type="checkbox"] {
+            width: 20px;
+            height: 20px;
+            margin-top: 2px;
+            flex-shrink: 0;
+            accent-color: var(--success);
+        }
+
+        .support {
+            background: white;
+            border-radius: 12px;
+            padding: 24px;
+            margin-top: 24px;
+            border: 1px solid var(--gray-200);
+            text-align: center;
+        }
+
+        .support h3 {
+            margin-bottom: 8px;
+            color: var(--gray-900);
+        }
+
+        .support p {
+            color: var(--gray-500);
+            font-size: 14px;
+        }
+
+        .support a {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 32px 20px;
+            color: var(--gray-500);
+            font-size: 13px;
+        }
+
+        .divider {
+            height: 1px;
+            background: var(--gray-200);
+            margin: 24px 0;
+        }
+
+        @media (max-width: 480px) {
+            .header h1 {
+                font-size: 22px;
+            }
+            .phase-title {
+                font-size: 18px;
+            }
+            .step {
+                padding: 16px 18px;
+            }
+            .container {
+                padding: 20px 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Подключение MAX к Teletype</h1>
+        <p>Пошаговая инструкция для старшего диспетчера</p>
+        <div class="badge">Маршал &bull; Инструкция v1.0</div>
+    </div>
+
+    <div class="container">
+        <div class="overview">
+            <h2>Что мы делаем и зачем</h2>
+            <p>Мы подключаем мессенджер <strong>MAX</strong> к платформе <strong>Teletype</strong>, чтобы сообщения из групповых диспетчерских чатов MAX автоматически попадали в единое окно Teletype. Это позволит:</p>
+            <ul>
+                <li>Видеть все сообщения из MAX-чатов в Teletype</li>
+                <li>Отвечать клиентам и партнёрам прямо из Teletype</li>
+                <li>Контролировать коммуникацию из одного места</li>
+            </ul>
+            <div class="time-estimate">
+                &#9200; Примерное время: 15–20 минут
+            </div>
+        </div>
+
+        <div class="overview">
+            <h2>Что понадобится</h2>
+            <ul>
+                <li>Телефон с установленным приложением <strong>MAX</strong> (скачать из App Store / Google Play / RuStore)</li>
+                <li>Аккаунт в <strong>Teletype</strong> с правами администратора</li>
+                <li>Права администратора в диспетчерском групповом чате MAX</li>
+            </ul>
+        </div>
+
+        <!-- ===== ФАЗА 1 ===== -->
+        <div class="phase">
+            <div class="phase-header">
+                <div class="phase-number">A</div>
+                <div class="phase-title">Создание бота в MAX</div>
+            </div>
+
+            <div class="step">
+                <div class="step-number">1</div>
+                <h3>Откройте приложение MAX на телефоне</h3>
+                <p>Запустите мессенджер MAX. Если приложение не установлено, скачайте его:</p>
+                <ul style="margin-left: 20px; color: var(--gray-700); margin-top: 8px;">
+                    <li>App Store (iPhone)</li>
+                    <li>Google Play или RuStore (Android)</li>
+                </ul>
+            </div>
+
+            <div class="connector"><div class="arrow"></div></div>
+
+            <div class="step">
+                <div class="step-number">2</div>
+                <h3>Найдите @MasterBot</h3>
+                <p>В строке поиска MAX введите:</p>
+                <div class="step-path">@MasterBot</div>
+                <p>Откройте диалог с этим ботом. Это официальный бот MAX для создания других ботов (аналог @BotFather в Telegram).</p>
+                <div class="step-visual">
+                    <div class="screen-title">Экран поиска MAX</div>
+                    <div class="screen-content">
+                        &#128269; Поиск: <span class="highlight">@MasterBot</span><br>
+                        &nbsp;&nbsp;&#9654; MasterBot — <em>официальный бот</em><br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;Нажмите, чтобы открыть диалог
+                    </div>
+                </div>
+            </div>
+
+            <div class="connector"><div class="arrow"></div></div>
+
+            <div class="step">
+                <div class="step-number">3</div>
+                <h3>Отправьте команду /create</h3>
+                <p>В чате с MasterBot напишите:</p>
+                <div class="step-path">/create</div>
+                <p>MasterBot попросит ввести <strong>никнейм (username)</strong> для нового бота.</p>
+            </div>
+
+            <div class="connector"><div class="arrow"></div></div>
+
+            <div class="step">
+                <div class="step-number">4</div>
+                <h3>Придумайте никнейм бота</h3>
+                <p>Введите никнейм для бота. <strong>Требования:</strong></p>
+                <ul style="margin-left: 20px; color: var(--gray-700); margin-top: 8px;">
+                    <li>Минимум <strong>11 символов</strong></li>
+                    <li>Должен заканчиваться на <code>bot</code> или <code>_bot</code></li>
+                    <li>Только латинские буквы, цифры и подчёркивание</li>
+                    <li><strong>Нельзя изменить</strong> после создания — выбирайте сразу правильный</li>
+                </ul>
+                <div class="step-visual">
+                    <div class="screen-title">Рекомендуемые варианты</div>
+                    <div class="screen-content">
+                        <span class="highlight">marshal_dispatch_bot</span> &larr; рекомендуемый<br>
+                        <span class="highlight">marshalgroup_bot</span><br>
+                        <span class="highlight">marshal_teletype_bot</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="connector"><div class="arrow"></div></div>
+
+            <div class="step">
+                <div class="step-number">5</div>
+                <h3>Введите отображаемое имя бота</h3>
+                <p>MasterBot попросит указать <strong>отображаемое имя</strong> — то, как бот будет виден в чате. Например:</p>
+                <div class="step-path">Маршал Диспетчер</div>
+                <p>Максимум 16 символов. Это имя можно будет изменить позже.</p>
+            </div>
+
+            <div class="connector"><div class="arrow"></div></div>
+
+            <div class="step">
+                <div class="step-number">6</div>
+                <h3>Сохраните токен бота</h3>
+                <p>После создания MasterBot выдаст <strong>секретный токен</strong> — длинную строку из букв и цифр.</p>
+                <div class="warning">
+                    <strong>&#9888; Важно! Сохраните токен прямо сейчас!</strong>
+                    Скопируйте токен и отправьте его себе в «Избранное» в MAX или в заметки телефона. Этот токен понадобится на следующем этапе. Никому не показывайте токен — это пароль от бота.
+                </div>
+                <div class="step-visual">
+                    <div class="screen-title">Пример ответа от MasterBot</div>
+                    <div class="screen-content">
+                        &#9989; Бот создан!<br>
+                        Никнейм: @marshal_dispatch_bot<br>
+                        Токен: <span class="highlight">a1b2c3d4e5f6...длинная строка...</span><br><br>
+                        <em>Скопируйте токен — он нужен для подключения</em>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ===== ФАЗА 2 ===== -->
+        <div class="phase">
+            <div class="phase-header">
+                <div class="phase-number">Б</div>
+                <div class="phase-title">Добавление бота в групповой чат</div>
+            </div>
+
+            <div class="step">
+                <div class="step-number">1</div>
+                <h3>Откройте групповой диспетчерский чат</h3>
+                <p>Перейдите в тот групповой чат MAX, к которому нужно подключить бота (например, диспетчерский чат Маршал).</p>
+            </div>
+
+            <div class="connector"><div class="arrow"></div></div>
+
+            <div class="step">
+                <div class="step-number">2</div>
+                <h3>Откройте настройки группы</h3>
+                <p>Нажмите на <strong>название группы</strong> вверху экрана, чтобы открыть информацию о чате.</p>
+                <div class="step-visual">
+                    <div class="screen-title">Верхняя панель чата</div>
+                    <div class="screen-content">
+                        &larr; <span class="highlight">&#128100; Диспетчерская Маршал</span> &#9662;<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&#8593; нажмите на название
+                    </div>
+                </div>
+            </div>
+
+            <div class="connector"><div class="arrow"></div></div>
+
+            <div class="step">
+                <div class="step-number">3</div>
+                <h3>Перейдите в раздел «Участники»</h3>
+                <p>В информации о группе найдите раздел <strong>«Участники»</strong> и нажмите на него.</p>
+            </div>
+
+            <div class="connector"><div class="arrow"></div></div>
+
+            <div class="step">
+                <div class="step-number">4</div>
+                <h3>Добавьте бота в группу</h3>
+                <p>Нажмите кнопку <strong>«Добавить участника»</strong> (или значок «+»). В поиске введите никнейм бота, который вы создали:</p>
+                <div class="step-path">@marshal_dispatch_bot</div>
+                <p>Выберите бота из результатов и добавьте его в группу.</p>
+            </div>
+
+            <div class="connector"><div class="arrow"></div></div>
+
+            <div class="step">
+                <div class="step-number">5</div>
+                <h3>Назначьте бота администратором группы</h3>
+                <p>Это <strong>обязательный шаг</strong> — без прав администратора бот не сможет читать все сообщения группы.</p>
+                <div class="step-visual">
+                    <div class="screen-title">Как назначить администратором</div>
+                    <div class="screen-content">
+                        1. В списке участников найдите бота<br>
+                        2. Нажмите на имя бота<br>
+                        3. Выберите <span class="highlight">«Назначить администратором»</span><br>
+                        4. Подтвердите действие
+                    </div>
+                </div>
+                <div class="warning">
+                    <strong>&#9888; Без этого шага бот не будет работать!</strong>
+                    Бот MAX получает сообщения из группового чата только при наличии прав администратора. Пропустить этот шаг нельзя.
+                </div>
+            </div>
+        </div>
+
+        <!-- ===== ФАЗА 3 ===== -->
+        <div class="phase">
+            <div class="phase-header">
+                <div class="phase-number">В</div>
+                <div class="phase-title">Подключение бота к Teletype</div>
+            </div>
+
+            <div class="step">
+                <div class="step-number">1</div>
+                <h3>Откройте панель управления Teletype</h3>
+                <p>Перейдите в <strong>Teletype</strong> на компьютере и войдите в панель управления вашего проекта.</p>
+                <div class="step-path">teletype.app &rarr; войти в аккаунт &rarr; выбрать проект</div>
+            </div>
+
+            <div class="connector"><div class="arrow"></div></div>
+
+            <div class="step">
+                <div class="step-number">2</div>
+                <h3>Добавьте новый канал</h3>
+                <p>В левом меню или в настройках проекта нажмите <strong>«Добавить канал»</strong>.</p>
+                <div class="step-visual">
+                    <div class="screen-title">Левое меню Teletype</div>
+                    <div class="screen-content">
+                        &#128172; Диалоги<br>
+                        &#128101; Операторы<br>
+                        &#9881; Настройки<br>
+                        <span class="btn">+ Добавить канал</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="connector"><div class="arrow"></div></div>
+
+            <div class="step">
+                <div class="step-number">3</div>
+                <h3>Выберите «Max через бота»</h3>
+                <p>В списке доступных каналов найдите блок <strong>MAX</strong> и выберите вариант <strong>«Max через бота»</strong> (не «Max по QR-коду»).</p>
+                <div class="info">
+                    <strong>&#128161; Почему «через бота», а не «по QR-коду»?</strong>
+                    Подключение через бота стабильнее: оно не привязано к конкретному телефону и не отключится, если кто-то выйдет из аккаунта. Бот работает независимо.
+                </div>
+            </div>
+
+            <div class="connector"><div class="arrow"></div></div>
+
+            <div class="step">
+                <div class="step-number">4</div>
+                <h3>Добавьте MAX-бота в тариф</h3>
+                <p>Нажмите кнопку <strong>«Добавить Max через бота в тариф»</strong>. Teletype подключит канал к вашему текущему тарифу.</p>
+                <div class="tip">
+                    <strong>&#128178; О стоимости</strong>
+                    Стоимость канала MAX зависит от тарифа. Если у вас уже оплачен Teletype, MAX-бот будет добавлен к текущему плану. При необходимости Teletype покажет доплату.
+                </div>
+            </div>
+
+            <div class="connector"><div class="arrow"></div></div>
+
+            <div class="step">
+                <div class="step-number">5</div>
+                <h3>Вставьте токен бота</h3>
+                <p>Teletype покажет поле для ввода токена. Вставьте <strong>токен</strong>, который вы получили от @MasterBot на этапе А.</p>
+                <div class="step-visual">
+                    <div class="screen-title">Окно подключения в Teletype</div>
+                    <div class="screen-content">
+                        Секретный токен бота:<br>
+                        &#9484;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9488;<br>
+                        &#9474; <span class="highlight">вставьте токен сюда</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&#9474;<br>
+                        &#9492;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9496;<br><br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="btn">Создать</span>
+                    </div>
+                </div>
+                <p>Нажмите <strong>«Создать»</strong>.</p>
+            </div>
+
+            <div class="connector"><div class="arrow"></div></div>
+
+            <div class="step">
+                <div class="step-number">6</div>
+                <h3>Дайте название каналу</h3>
+                <p>Teletype предложит задать <strong>название канала</strong>. Рекомендуем назвать понятно, например:</p>
+                <div class="step-path">MAX — Диспетчерская</div>
+                <p>Это название будет видно только операторам в Teletype, клиенты его не увидят.</p>
+            </div>
+
+            <div class="connector"><div class="arrow"></div></div>
+
+            <div class="step">
+                <div class="step-number">7</div>
+                <h3>Завершите подключение</h3>
+                <p>Нажмите <strong>«Завершить подключение»</strong>. Канал MAX теперь подключён к Teletype!</p>
+                <div class="tip">
+                    <strong>&#9989; Готово!</strong>
+                    Все новые сообщения из группового чата MAX, где добавлен бот, теперь будут появляться в панели Teletype. Операторы смогут видеть и отвечать на них.
+                </div>
+            </div>
+        </div>
+
+        <!-- ===== ПРОВЕРКА ===== -->
+        <div class="phase">
+            <div class="phase-header">
+                <div class="phase-number">Г</div>
+                <div class="phase-title">Проверка работы</div>
+            </div>
+
+            <div class="step">
+                <div class="step-number">1</div>
+                <h3>Отправьте тестовое сообщение</h3>
+                <p>Попросите кого-нибудь из коллег написать сообщение в групповой чат MAX, где добавлен бот.</p>
+            </div>
+
+            <div class="connector"><div class="arrow"></div></div>
+
+            <div class="step">
+                <div class="step-number">2</div>
+                <h3>Проверьте в Teletype</h3>
+                <p>Перейдите в раздел <strong>«Диалоги»</strong> в Teletype. Новое сообщение должно появиться в течение нескольких секунд с пометкой канала MAX.</p>
+            </div>
+
+            <div class="connector"><div class="arrow"></div></div>
+
+            <div class="step">
+                <div class="step-number">3</div>
+                <h3>Попробуйте ответить</h3>
+                <p>Ответьте на сообщение из Teletype и проверьте, что ответ пришёл в групповой чат MAX.</p>
+            </div>
+        </div>
+
+        <div class="divider"></div>
+
+        <!-- ===== ЧЕКЛИСТ ===== -->
+        <div class="checklist">
+            <h2>&#9745; Финальный чеклист</h2>
+            <p style="color: var(--gray-500); margin-bottom: 16px; font-size: 14px;">Отметьте каждый пункт после выполнения:</p>
+            <label><input type="checkbox"> Бот создан через @MasterBot в MAX</label>
+            <label><input type="checkbox"> Токен бота сохранён в надёжном месте</label>
+            <label><input type="checkbox"> Бот добавлен в диспетчерский групповой чат</label>
+            <label><input type="checkbox"> Бот назначен администратором группы</label>
+            <label><input type="checkbox"> В Teletype добавлен канал «Max через бота»</label>
+            <label><input type="checkbox"> Токен вставлен в Teletype и канал создан</label>
+            <label><input type="checkbox"> Тестовое сообщение из MAX видно в Teletype</label>
+            <label><input type="checkbox"> Ответ из Teletype приходит в MAX</label>
+        </div>
+
+        <!-- ===== ЧАСТЫЕ ВОПРОСЫ ===== -->
+        <div class="overview" style="margin-top: 24px;">
+            <h2>Частые вопросы</h2>
+
+            <div class="divider"></div>
+
+            <p><strong>Бот не появляется в поиске при добавлении в группу</strong></p>
+            <p style="color: var(--gray-500); margin-bottom: 16px;">Убедитесь, что вводите полный никнейм бота с @. Если бот только что создан, подождите 1-2 минуты — он может индексироваться.</p>
+
+            <p><strong>Сообщения из группы не приходят в Teletype</strong></p>
+            <p style="color: var(--gray-500); margin-bottom: 16px;">Проверьте, что бот назначен <strong>администратором</strong> группы (этап Б, шаг 5). Без этого бот не получает сообщения. Также проверьте, что токен введён правильно.</p>
+
+            <p><strong>Можно ли подключить несколько групп?</strong></p>
+            <p style="color: var(--gray-500); margin-bottom: 16px;">Да. Добавьте того же бота в другие группы и назначьте администратором. Все сообщения из всех групп будут приходить в Teletype через один канал.</p>
+
+            <p><strong>Что если кто-то удалит бота из группы?</strong></p>
+            <p style="color: var(--gray-500);">Сообщения из этой группы перестанут поступать в Teletype. Нужно будет заново добавить бота и назначить администратором.</p>
+        </div>
+
+        <!-- ===== ПОДДЕРЖКА ===== -->
+        <div class="support">
+            <h3>Нужна помощь?</h3>
+            <p>Если возникли сложности с подключением, напишите в Telegram:</p>
+            <p style="margin-top: 8px;"><a href="https://t.me/vf_marshal">@vf_marshal</a> — Виктория</p>
+            <p><a href="https://t.me/timzinin">@timzinin</a> — Тим (техподдержка)</p>
+        </div>
+    </div>
+
+    <div class="footer">
+        <p>Подготовлено для ТК «Маршал» &bull; 2026</p>
+    </div>
+</body>
+</html>
