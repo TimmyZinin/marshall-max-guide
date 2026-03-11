@@ -1026,7 +1026,7 @@
             <div class="header-emoji">&#128075;</div>
             <h1>Добро пожаловать в Teletype!</h1>
             <p>Пошаговая инструкция для диспетчеров</p>
-            <div class="badge">Маршал &bull; Инструкция v2.0</div>
+            <div class="badge">Маршал &bull; Инструкция v2.1</div>
         </div>
     </div>
 
@@ -1037,6 +1037,16 @@
             <h2>&#128218; Что такое Teletype и зачем он нужен?</h2>
             <p><strong>Teletype</strong> — это единое окно для всех сообщений. Вместо того, чтобы переключаться между Telegram, MAX и другими мессенджерами, вы будете видеть <strong>все сообщения в одном месте</strong> и отвечать на них оттуда же.</p>
             <p>Это сэкономит время и поможет не пропустить важные сообщения от партнёров и водителей.</p>
+            <p>После подключения вы сможете:</p>
+            <ul>
+                <li>Видеть <strong>все чаты</strong> из Telegram и MAX в одном окне</li>
+                <li><strong>Назначать ответственных</strong> за конкретные переписки</li>
+                <li>Автоматизировать типовые ответы</li>
+            </ul>
+            <div class="alert alert-warning" style="margin-top: 16px;">
+                <strong>&#128272; Важно: включите VPN!</strong>
+                Для стабильной работы Teletype <strong>необходим VPN</strong>. Включите его <strong>до начала</strong> настройки и не выключайте во время работы. Без VPN страницы могут не загружаться или загружаться очень медленно.
+            </div>
             <div class="friendly-note">
                 <strong>&#128153; Не переживайте!</strong> Подключение занимает всего 15 минут, а инструкция написана максимально подробно. Если что-то непонятно — внизу есть контакты для помощи.
             </div>
@@ -1297,6 +1307,11 @@
                     <strong>&#9200; Ссылка действует 3 часа!</strong>
                     После получения ссылки выполните подключение как можно скорее. Если ссылка перестала работать — попросите администратора отправить новую.
                 </div>
+
+                <div class="alert alert-info">
+                    <strong>&#128161; Подключайте рабочий аккаунт!</strong>
+                    Вводите номер телефона <strong>рабочего</strong> Telegram-аккаунта (тот, с которого вы общаетесь с партнёрами и водителями). Именно его переписки будут видны в Teletype.
+                </div>
             </div>
 
             <div class="connector"><div class="arrow"></div></div>
@@ -1363,7 +1378,7 @@
             <div class="step">
                 <div class="step-badge blue">3а</div>
                 <h3>Введите код подтверждения</h3>
-                <p>В ваш <strong>Telegram на телефоне</strong> придёт PIN-код (числовой код). Введите его на странице в браузере.</p>
+                <p>Код придёт <strong>прямо в Telegram</strong> (в приложение на телефоне) — <strong>НЕ по SMS!</strong> Откройте Telegram, найдите сообщение с кодом в списке чатов (обычно от «Telegram») и введите его на странице в браузере.</p>
 
                 <div class="visual-demo">
                     <div class="demo-label">Код придёт в Telegram на телефоне</div>
@@ -1387,6 +1402,11 @@
                 </div>
 
                 <div class="alert alert-warning">
+                    <strong>&#9201;&#65039; Вводите код БЫСТРО!</strong>
+                    Код действует <strong>ограниченное время</strong>. Как только увидели код в Telegram — сразу вводите его в браузере. Если код не подошёл — нажмите «Отправить повторно» и попробуйте ещё раз.
+                </div>
+
+                <div class="alert alert-info">
                     <strong>&#128274; Код — только для вас!</strong>
                     Никому не сообщайте этот код. Он нужен только для подключения Teletype к вашему Telegram.
                 </div>
@@ -1402,10 +1422,15 @@
                 <ol class="visual-list">
                     <li><span class="num">1</span> Выберите <strong>«По QR-коду»</strong> — на экране появится QR-код</li>
                     <li><span class="num">2</span> Откройте <strong>Telegram</strong> на телефоне</li>
-                    <li><span class="num">3</span> Перейдите: <strong>Настройки</strong> &rarr; <strong>Устройства</strong> &rarr; <strong>«Подключить устройство»</strong></li>
+                    <li><span class="num">3</span> Перейдите: <strong>Настройки</strong> &rarr; <strong>Устройства</strong> &rarr; <strong>«Подключить устройство»</strong> (синяя кнопка)</li>
                     <li><span class="num">4</span> Наведите камеру телефона на QR-код в браузере</li>
                     <li><span class="num">5</span> Подтвердите подключение</li>
                 </ol>
+
+                <div class="alert alert-warning">
+                    <strong>&#9201;&#65039; QR-код обновляется каждые 30 секунд!</strong>
+                    Сканируйте быстро. Если код «вылетел» или пишет «неверный код» — подождите, пока появится новый QR-код, и попробуйте снова. Убедитесь, что на телефоне <strong>включён VPN</strong>.
+                </div>
 
                 <div class="visual-demo">
                     <div class="demo-label">QR-код на экране компьютера</div>
@@ -1420,8 +1445,10 @@
 
             <div class="step">
                 <div class="step-badge blue">4</div>
-                <h3>Нажмите «Завершить подключение»</h3>
-                <p>После ввода кода (или сканирования QR) нажмите кнопку <strong>«Завершить подключение»</strong>.</p>
+                <h3>Назовите канал и завершите подключение</h3>
+                <p>После ввода кода (или сканирования QR) система попросит <strong>дать название каналу</strong>.</p>
+                <p>Напишите: <strong>Ваше имя</strong> (например, «Алёна» или «Марина»). Это нужно, чтобы администратор мог отличить каналы разных диспетчеров друг от друга.</p>
+                <p>Затем нажмите <strong>«Завершить подключение»</strong>.</p>
                 <p>Teletype автоматически подгрузит <strong>ваши последние 10 диалогов</strong> — это нормально!</p>
 
                 <div class="alert alert-tip">
@@ -1561,9 +1588,15 @@
 
             <div class="step">
                 <div class="step-badge orange">4</div>
-                <h3>Завершите подключение</h3>
-                <p>После сканирования QR-кода нажмите <strong>«Завершить подключение»</strong> в Teletype.</p>
-                <p>При желании можно задать <strong>название канала</strong> (например, «MAX — рабочий»). Это название видно только вам и коллегам в Teletype.</p>
+                <h3>Назовите канал и завершите подключение</h3>
+                <p>После сканирования QR-кода система попросит дать <strong>название каналу</strong>.</p>
+                <p>Напишите: <strong>Ваше имя — Макс</strong> (например, «Алёна — Макс»). Так администратор сможет отличить каналы разных диспетчеров.</p>
+                <p>Нажмите <strong>«Завершить подключение»</strong>.</p>
+
+                <div class="alert alert-warning">
+                    <strong>&#9201;&#65039; QR-код в MAX тоже обновляется!</strong>
+                    Как и с Telegram — сканируйте быстро. Если не получилось с первого раза, подождите новый код и попробуйте снова. Убедитесь, что <strong>VPN включён</strong>.
+                </div>
 
                 <div class="alert alert-tip">
                     <strong>&#9989; Как проверить, что всё работает</strong>
@@ -1585,6 +1618,7 @@
             <h2>&#9745;&#65039; Финальный чеклист</h2>
             <p class="checklist-subtitle">Отмечайте каждый пункт после выполнения:</p>
 
+            <label><input type="checkbox"> <span>Включила VPN</span></label>
             <label><input type="checkbox"> <span>Отправила свой email в рабочий чат</span></label>
             <div class="checklist-divider"></div>
             <label><input type="checkbox"> <span>Получила письмо-приглашение от Teletype</span></label>
@@ -1592,10 +1626,12 @@
             <label><input type="checkbox"> <span>Вижу панель Teletype в браузере</span></label>
             <div class="checklist-divider"></div>
             <label><input type="checkbox"> <span>Подключила свой Telegram (по номеру или QR-коду)</span></label>
+            <label><input type="checkbox"> <span>Назвала канал Telegram своим именем</span></label>
             <label><input type="checkbox"> <span>Тестовое сообщение из Telegram видно в Teletype</span></label>
             <div class="checklist-divider"></div>
             <label><input type="checkbox"> <span>Установила приложение MAX на телефон</span></label>
             <label><input type="checkbox"> <span>Подключила MAX по QR-коду</span></label>
+            <label><input type="checkbox"> <span>Назвала канал MAX: «Имя — Макс»</span></label>
             <label><input type="checkbox"> <span>Тестовое сообщение из MAX видно в Teletype</span></label>
             <div class="checklist-divider"></div>
             <label><input type="checkbox"> <span>Включила push-уведомления в Teletype</span></label>
@@ -1618,6 +1654,14 @@
             </details>
 
             <details class="faq-item">
+                <summary>Как заходить в Teletype повторно?</summary>
+                <div class="faq-answer">
+                    <p>Откройте в браузере <strong>marshalaitech.teletype.app</strong> и войдите с помощью <strong>email + пароль</strong>, которые вы указали при регистрации. Если вы не выходили из системы — страница откроется автоматически.</p>
+                    <p>Совет: добавьте эту страницу в закладки браузера для быстрого доступа.</p>
+                </div>
+            </details>
+
+            <details class="faq-item">
                 <summary>Я забыла пароль — как войти?</summary>
                 <div class="faq-answer">
                     <p>На странице входа в Teletype нажмите <strong>«Забыли пароль?»</strong>. На вашу почту придёт ссылка для сброса пароля. Перейдите по ней и придумайте новый пароль.</p>
@@ -1628,6 +1672,26 @@
                 <summary>Ссылка для подключения Telegram не работает</summary>
                 <div class="faq-answer">
                     <p>Ссылка действует <strong>только 3 часа</strong>. Если прошло больше времени — попросите администратора сгенерировать новую ссылку. Это делается за 30 секунд.</p>
+                </div>
+            </details>
+
+            <details class="faq-item">
+                <summary>QR-код не сканируется / пишет «неверный код» / вылетает</summary>
+                <div class="faq-answer">
+                    <p>Это частая проблема. QR-код обновляется каждые <strong>30 секунд</strong>, поэтому:</p>
+                    <p>1. Убедитесь, что <strong>VPN включён</strong> и на телефоне, и на компьютере</p>
+                    <p>2. Подготовьте телефон заранее: откройте сканер QR <strong>до того</strong>, как запросите код</p>
+                    <p>3. Как только QR появился — сканируйте немедленно</p>
+                    <p>4. Если пишет «неверный код» — подождите новый QR и попробуйте снова</p>
+                    <p>5. Если не получается несколько раз — попробуйте <strong>вариант по номеру телефона</strong> вместо QR</p>
+                    <p>6. Если ничего не помогает — напишите администратору, он пришлёт <strong>прямую ссылку</strong> для подключения</p>
+                </div>
+            </details>
+
+            <details class="faq-item">
+                <summary>Страница не грузится / работает очень медленно</summary>
+                <div class="faq-answer">
+                    <p>Скорее всего, не включён <strong>VPN</strong>. Включите VPN и обновите страницу. Если VPN включён, но страница всё равно не грузится — попробуйте другой VPN-сервер или другой браузер.</p>
                 </div>
             </details>
 
