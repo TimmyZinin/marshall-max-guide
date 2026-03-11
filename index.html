@@ -3,127 +3,200 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Инструкция: Подключение MAX к Teletype — Маршал</title>
+    <title>Подключение к Teletype — Инструкция для диспетчеров | Маршал</title>
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
         :root {
-            --primary: #2563eb;
-            --primary-light: #dbeafe;
+            --primary: #6366f1;
+            --primary-dark: #4f46e5;
+            --primary-light: #e0e7ff;
+            --primary-bg: #eef2ff;
             --accent: #f59e0b;
             --accent-light: #fef3c7;
             --success: #10b981;
             --success-light: #d1fae5;
             --danger: #ef4444;
             --danger-light: #fee2e2;
+            --info: #0ea5e9;
+            --info-light: #e0f2fe;
+            --warm: #f97316;
+            --warm-light: #fff7ed;
+            --pink: #ec4899;
+            --pink-light: #fce7f3;
             --gray-50: #f9fafb;
             --gray-100: #f3f4f6;
             --gray-200: #e5e7eb;
             --gray-300: #d1d5db;
+            --gray-400: #9ca3af;
             --gray-500: #6b7280;
+            --gray-600: #4b5563;
             --gray-700: #374151;
+            --gray-800: #1f2937;
             --gray-900: #111827;
+            --radius: 16px;
+            --shadow: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
+            --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.07), 0 2px 4px -2px rgba(0,0,0,0.05);
+            --shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.08), 0 4px 6px -4px rgba(0,0,0,0.05);
         }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-            line-height: 1.6;
-            color: var(--gray-900);
-            background: var(--gray-50);
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.7;
+            color: var(--gray-800);
+            background: #f8fafc;
         }
 
+        /* ===== HEADER ===== */
         .header {
-            background: linear-gradient(135deg, #1e40af 0%, #3b82f6 100%);
+            background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 50%, #a855f7 100%);
             color: white;
-            padding: 40px 20px;
+            padding: 48px 20px 56px;
             text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.08) 0%, transparent 60%);
+            animation: headerGlow 8s ease-in-out infinite;
+        }
+
+        @keyframes headerGlow {
+            0%, 100% { transform: translate(0, 0); }
+            50% { transform: translate(30px, -20px); }
+        }
+
+        .header-content { position: relative; z-index: 1; }
+
+        .header-emoji {
+            font-size: 48px;
+            margin-bottom: 12px;
+            animation: wave 2s ease-in-out infinite;
+        }
+
+        @keyframes wave {
+            0%, 100% { transform: rotate(0deg); }
+            25% { transform: rotate(15deg); }
+            75% { transform: rotate(-5deg); }
         }
 
         .header h1 {
             font-size: 28px;
+            font-weight: 800;
             margin-bottom: 8px;
-            font-weight: 700;
+            letter-spacing: -0.5px;
         }
 
         .header p {
-            font-size: 16px;
-            opacity: 0.9;
+            font-size: 17px;
+            opacity: 0.92;
+            font-weight: 400;
         }
 
-        .badge {
+        .header .badge {
             display: inline-block;
-            background: rgba(255,255,255,0.2);
-            padding: 4px 12px;
-            border-radius: 20px;
+            background: rgba(255,255,255,0.18);
+            backdrop-filter: blur(10px);
+            padding: 6px 16px;
+            border-radius: 24px;
             font-size: 13px;
-            margin-top: 12px;
+            margin-top: 16px;
+            font-weight: 500;
         }
 
+        /* ===== CONTAINER ===== */
         .container {
-            max-width: 720px;
+            max-width: 700px;
             margin: 0 auto;
             padding: 32px 20px;
         }
 
-        .overview {
+        /* ===== WELCOME CARD ===== */
+        .welcome-card {
             background: white;
-            border-radius: 12px;
-            padding: 24px;
-            margin-bottom: 32px;
+            border-radius: var(--radius);
+            padding: 28px;
+            margin-bottom: 28px;
             border: 1px solid var(--gray-200);
+            box-shadow: var(--shadow);
         }
 
-        .overview h2 {
-            font-size: 20px;
+        .welcome-card h2 {
+            font-size: 22px;
+            font-weight: 700;
             margin-bottom: 12px;
             color: var(--gray-900);
         }
 
-        .overview p {
-            color: var(--gray-700);
-            margin-bottom: 8px;
+        .welcome-card p {
+            color: var(--gray-600);
+            margin-bottom: 10px;
+            font-size: 15px;
         }
 
-        .overview ul {
-            margin-left: 20px;
-            color: var(--gray-700);
+        .welcome-card .friendly-note {
+            background: var(--pink-light);
+            border-radius: 12px;
+            padding: 16px 20px;
+            margin-top: 16px;
+            font-size: 15px;
+            color: #9d174d;
+            border-left: 4px solid var(--pink);
         }
 
-        .overview ul li {
-            margin-bottom: 4px;
+        /* ===== PROGRESS TRACKER ===== */
+        .progress-tracker {
+            background: white;
+            border-radius: var(--radius);
+            padding: 24px 28px;
+            margin-bottom: 32px;
+            border: 1px solid var(--gray-200);
+            box-shadow: var(--shadow);
         }
 
-        .time-estimate {
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            background: var(--accent-light);
-            color: #92400e;
-            padding: 6px 14px;
-            border-radius: 8px;
-            font-size: 14px;
-            font-weight: 600;
-            margin-top: 12px;
-        }
-
-        .phase {
-            margin-bottom: 40px;
-        }
-
-        .phase-header {
-            display: flex;
-            align-items: center;
-            gap: 12px;
+        .progress-tracker h3 {
+            font-size: 15px;
+            font-weight: 700;
+            color: var(--gray-500);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
             margin-bottom: 20px;
         }
 
-        .phase-number {
-            background: var(--primary);
-            color: white;
+        .progress-steps {
+            display: flex;
+            flex-direction: column;
+            gap: 0;
+        }
+
+        .progress-step {
+            display: flex;
+            align-items: flex-start;
+            gap: 14px;
+            padding: 12px 0;
+            position: relative;
+        }
+
+        .progress-step:not(:last-child)::after {
+            content: '';
+            position: absolute;
+            left: 17px;
+            top: 44px;
+            bottom: -4px;
+            width: 2px;
+            background: var(--gray-200);
+        }
+
+        .progress-dot {
             width: 36px;
             height: 36px;
             border-radius: 50%;
@@ -131,26 +204,103 @@
             align-items: center;
             justify-content: center;
             font-weight: 700;
-            font-size: 16px;
+            font-size: 15px;
+            flex-shrink: 0;
+            position: relative;
+            z-index: 1;
+        }
+
+        .progress-dot.step-email { background: var(--primary-light); color: var(--primary-dark); }
+        .progress-dot.step-register { background: var(--success-light); color: #059669; }
+        .progress-dot.step-telegram { background: var(--info-light); color: #0284c7; }
+        .progress-dot.step-max { background: var(--warm-light); color: #c2410c; }
+
+        .progress-info h4 {
+            font-size: 15px;
+            font-weight: 600;
+            color: var(--gray-800);
+            margin-bottom: 2px;
+        }
+
+        .progress-info p {
+            font-size: 13px;
+            color: var(--gray-500);
+        }
+
+        .progress-time {
+            font-size: 12px;
+            background: var(--gray-100);
+            padding: 2px 8px;
+            border-radius: 6px;
+            color: var(--gray-500);
+            font-weight: 500;
+            white-space: nowrap;
+            margin-left: auto;
+            align-self: center;
+        }
+
+        /* ===== PHASE ===== */
+        .phase {
+            margin-bottom: 40px;
+        }
+
+        .phase-header {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            margin-bottom: 20px;
+            padding-bottom: 12px;
+            border-bottom: 2px solid var(--gray-100);
+        }
+
+        .phase-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
             flex-shrink: 0;
         }
 
-        .phase-title {
+        .phase-icon.email-phase { background: var(--primary-light); }
+        .phase-icon.register-phase { background: var(--success-light); }
+        .phase-icon.telegram-phase { background: var(--info-light); }
+        .phase-icon.max-phase { background: var(--warm-light); }
+
+        .phase-meta .phase-label {
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: var(--gray-400);
+        }
+
+        .phase-meta .phase-title {
             font-size: 22px;
             font-weight: 700;
             color: var(--gray-900);
+            margin-top: 2px;
         }
 
+        /* ===== STEP CARD ===== */
         .step {
             background: white;
-            border-radius: 12px;
-            padding: 20px 24px;
-            margin-bottom: 16px;
+            border-radius: var(--radius);
+            padding: 24px;
+            margin-bottom: 14px;
             border: 1px solid var(--gray-200);
+            box-shadow: var(--shadow);
             position: relative;
+            transition: box-shadow 0.2s;
         }
 
-        .step-number {
+        .step:hover {
+            box-shadow: var(--shadow-md);
+        }
+
+        .step-badge {
             position: absolute;
             top: -10px;
             left: 20px;
@@ -164,127 +314,360 @@
             justify-content: center;
             font-weight: 700;
             font-size: 13px;
+            box-shadow: 0 2px 4px rgba(99,102,241,0.3);
         }
+
+        .step-badge.green { background: var(--success); box-shadow: 0 2px 4px rgba(16,185,129,0.3); }
+        .step-badge.blue { background: var(--info); box-shadow: 0 2px 4px rgba(14,165,233,0.3); }
+        .step-badge.orange { background: var(--warm); box-shadow: 0 2px 4px rgba(249,115,22,0.3); }
 
         .step h3 {
             font-size: 17px;
+            font-weight: 700;
             margin-bottom: 8px;
             color: var(--gray-900);
             padding-top: 4px;
         }
 
         .step p {
-            color: var(--gray-700);
+            color: var(--gray-600);
+            margin-bottom: 8px;
+            font-size: 15px;
+        }
+
+        .step ul {
+            margin-left: 20px;
+            color: var(--gray-600);
             margin-bottom: 8px;
         }
 
-        .step-path {
+        .step ul li {
+            margin-bottom: 4px;
+            font-size: 15px;
+        }
+
+        /* ===== ANIMATED VISUAL (replaces GIF) ===== */
+        .visual-demo {
+            background: var(--gray-50);
+            border: 2px solid var(--gray-200);
+            border-radius: 12px;
+            padding: 20px;
+            margin: 16px 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .visual-demo .demo-label {
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            color: var(--gray-400);
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .visual-demo .demo-label::before {
+            content: '';
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--success);
+            animation: blink 1.5s ease-in-out infinite;
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.3; }
+        }
+
+        /* Phone mockup */
+        .phone-mockup {
+            background: white;
+            border-radius: 20px;
+            border: 2px solid var(--gray-300);
+            max-width: 300px;
+            margin: 0 auto;
+            overflow: hidden;
+            box-shadow: var(--shadow-lg);
+        }
+
+        .phone-notch {
+            background: var(--gray-200);
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .phone-notch-inner {
+            width: 80px;
+            height: 6px;
+            background: var(--gray-300);
+            border-radius: 3px;
+        }
+
+        .phone-screen {
+            padding: 16px;
+            min-height: 160px;
+        }
+
+        /* Browser mockup */
+        .browser-mockup {
+            background: white;
+            border-radius: 12px;
+            border: 2px solid var(--gray-300);
+            overflow: hidden;
+            box-shadow: var(--shadow-lg);
+        }
+
+        .browser-bar {
+            background: var(--gray-100);
+            padding: 8px 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            border-bottom: 1px solid var(--gray-200);
+        }
+
+        .browser-dots {
+            display: flex;
+            gap: 5px;
+        }
+
+        .browser-dots span {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+        }
+
+        .browser-dots span:nth-child(1) { background: #ef4444; }
+        .browser-dots span:nth-child(2) { background: #f59e0b; }
+        .browser-dots span:nth-child(3) { background: #10b981; }
+
+        .browser-url {
+            flex: 1;
+            background: white;
+            border-radius: 6px;
+            padding: 4px 10px;
+            font-size: 12px;
+            color: var(--gray-500);
+            font-family: 'SF Mono', 'Monaco', monospace;
+            border: 1px solid var(--gray-200);
+        }
+
+        .browser-content {
+            padding: 20px;
+            min-height: 150px;
+        }
+
+        /* Email mockup */
+        .email-mockup {
+            background: white;
+            border-radius: 12px;
+            border: 2px solid var(--gray-200);
+            overflow: hidden;
+            box-shadow: var(--shadow-md);
+        }
+
+        .email-header-bar {
+            background: var(--gray-100);
+            padding: 12px 16px;
+            border-bottom: 1px solid var(--gray-200);
+        }
+
+        .email-from {
+            font-size: 13px;
+            color: var(--gray-500);
+        }
+
+        .email-subject {
+            font-size: 15px;
+            font-weight: 600;
+            color: var(--gray-900);
+            margin-top: 2px;
+        }
+
+        .email-body {
+            padding: 20px;
+        }
+
+        /* Chat bubble style */
+        .chat-bubble {
+            background: var(--primary-light);
+            border-radius: 16px 16px 16px 4px;
+            padding: 12px 16px;
+            margin-bottom: 8px;
+            max-width: 85%;
+            font-size: 14px;
+            color: var(--gray-800);
+            animation: slideIn 0.5s ease-out;
+        }
+
+        .chat-bubble.outgoing {
+            background: var(--primary);
+            color: white;
+            border-radius: 16px 16px 4px 16px;
+            margin-left: auto;
+        }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Animated arrow */
+        .animated-arrow {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 4px 0;
+            color: var(--primary);
+            font-size: 20px;
+            animation: bounce 1s ease-in-out infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(6px); }
+        }
+
+        .pointer-arrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            color: var(--danger);
+            font-weight: 600;
+            font-size: 14px;
+            animation: pointLeft 1s ease-in-out infinite;
+        }
+
+        @keyframes pointLeft {
+            0%, 100% { transform: translateX(0); }
+            50% { transform: translateX(-6px); }
+        }
+
+        /* Highlight pulse */
+        .highlight-pulse {
+            display: inline-block;
+            background: var(--accent-light);
+            padding: 3px 10px;
+            border-radius: 6px;
+            font-weight: 600;
+            color: #92400e;
+            position: relative;
+        }
+
+        .highlight-pulse::after {
+            content: '';
+            position: absolute;
+            inset: -2px;
+            border-radius: 8px;
+            border: 2px solid var(--accent);
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 1; }
+        }
+
+        /* CTA Button style */
+        .btn-cta {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: white;
+            padding: 10px 24px;
+            border-radius: 10px;
+            font-size: 14px;
+            font-weight: 600;
+            text-decoration: none;
+            box-shadow: 0 2px 8px rgba(99,102,241,0.3);
+            transition: transform 0.15s, box-shadow 0.15s;
+            cursor: pointer;
+            border: none;
+        }
+
+        .btn-cta:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(99,102,241,0.4);
+        }
+
+        .btn-cta.green {
+            background: linear-gradient(135deg, var(--success) 0%, #059669 100%);
+            box-shadow: 0 2px 8px rgba(16,185,129,0.3);
+        }
+
+        .btn-cta.blue {
+            background: linear-gradient(135deg, var(--info) 0%, #0284c7 100%);
+            box-shadow: 0 2px 8px rgba(14,165,233,0.3);
+        }
+
+        /* Alerts */
+        .alert {
+            border-radius: 12px;
+            padding: 16px 20px;
+            margin: 14px 0;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        .alert strong {
+            display: block;
+            margin-bottom: 4px;
+            font-size: 14px;
+        }
+
+        .alert-warning {
+            background: var(--danger-light);
+            border-left: 4px solid var(--danger);
+            color: #991b1b;
+        }
+
+        .alert-tip {
+            background: var(--success-light);
+            border-left: 4px solid var(--success);
+            color: #065f46;
+        }
+
+        .alert-info {
+            background: var(--info-light);
+            border-left: 4px solid var(--info);
+            color: #0c4a6e;
+        }
+
+        .alert-friendly {
+            background: var(--pink-light);
+            border-left: 4px solid var(--pink);
+            color: #9d174d;
+        }
+
+        /* Path/code display */
+        .path-display {
             display: inline-block;
             background: var(--gray-100);
             border: 1px solid var(--gray-200);
             padding: 8px 16px;
             border-radius: 8px;
-            font-family: 'SF Mono', 'Monaco', 'Inconsolata', 'Fira Mono', monospace;
+            font-family: 'SF Mono', 'Monaco', 'Inconsolata', monospace;
             font-size: 14px;
             color: var(--gray-900);
             margin: 8px 0;
             word-break: break-all;
         }
 
-        .step-visual {
-            background: var(--gray-100);
-            border-radius: 8px;
-            padding: 16px 20px;
-            margin: 12px 0;
-            border: 1px dashed var(--gray-300);
-        }
-
-        .step-visual .screen-title {
-            font-size: 12px;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            color: var(--gray-500);
-            margin-bottom: 8px;
-            font-weight: 600;
-        }
-
-        .step-visual .screen-content {
-            font-family: 'SF Mono', 'Monaco', 'Inconsolata', 'Fira Mono', monospace;
-            font-size: 14px;
-            line-height: 1.8;
-            color: var(--gray-900);
-        }
-
-        .step-visual .screen-content .highlight {
-            background: var(--accent-light);
-            padding: 2px 6px;
-            border-radius: 4px;
-            font-weight: 600;
-        }
-
-        .step-visual .screen-content .btn {
-            display: inline-block;
-            background: var(--primary);
-            color: white;
-            padding: 4px 12px;
-            border-radius: 6px;
-            font-size: 13px;
-        }
-
-        .warning {
-            background: var(--danger-light);
-            border: 1px solid #fca5a5;
-            border-radius: 8px;
-            padding: 14px 18px;
-            margin: 12px 0;
-            color: #991b1b;
-            font-size: 14px;
-        }
-
-        .warning strong {
-            display: block;
-            margin-bottom: 4px;
-        }
-
-        .tip {
-            background: var(--success-light);
-            border: 1px solid #6ee7b7;
-            border-radius: 8px;
-            padding: 14px 18px;
-            margin: 12px 0;
-            color: #065f46;
-            font-size: 14px;
-        }
-
-        .tip strong {
-            display: block;
-            margin-bottom: 4px;
-        }
-
-        .info {
-            background: var(--primary-light);
-            border: 1px solid #93c5fd;
-            border-radius: 8px;
-            padding: 14px 18px;
-            margin: 12px 0;
-            color: #1e3a5f;
-            font-size: 14px;
-        }
-
-        .info strong {
-            display: block;
-            margin-bottom: 4px;
-        }
-
+        /* Connector */
         .connector {
             display: flex;
             justify-content: center;
-            padding: 8px 0;
+            padding: 6px 0;
         }
 
         .connector .arrow {
             width: 2px;
-            height: 24px;
+            height: 20px;
             background: var(--gray-300);
             position: relative;
         }
@@ -294,160 +677,820 @@
             position: absolute;
             bottom: 0;
             left: -4px;
-            width: 0;
-            height: 0;
             border-left: 5px solid transparent;
             border-right: 5px solid transparent;
             border-top: 6px solid var(--gray-300);
         }
 
+        /* Celebration */
+        .celebration {
+            text-align: center;
+            padding: 32px 20px;
+            background: linear-gradient(135deg, var(--success-light) 0%, #ecfdf5 100%);
+            border-radius: var(--radius);
+            border: 2px solid var(--success);
+            margin: 20px 0;
+        }
+
+        .celebration .emoji-big {
+            font-size: 48px;
+            margin-bottom: 12px;
+            animation: celebrate 0.6s ease-in-out infinite alternate;
+        }
+
+        @keyframes celebrate {
+            from { transform: scale(1); }
+            to { transform: scale(1.15); }
+        }
+
+        .celebration h3 {
+            font-size: 20px;
+            color: #065f46;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .celebration p {
+            color: #047857;
+            font-size: 15px;
+        }
+
+        /* Divider with text */
+        .divider-text {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin: 32px 0;
+            color: var(--gray-400);
+            font-size: 13px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .divider-text::before, .divider-text::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: var(--gray-200);
+        }
+
+        /* Checklist */
         .checklist {
             background: white;
-            border-radius: 12px;
-            padding: 24px;
+            border-radius: var(--radius);
+            padding: 28px;
             margin-top: 32px;
             border: 2px solid var(--success);
+            box-shadow: var(--shadow);
         }
 
         .checklist h2 {
             color: var(--success);
-            margin-bottom: 16px;
+            margin-bottom: 6px;
             font-size: 20px;
+            font-weight: 700;
+        }
+
+        .checklist .checklist-subtitle {
+            color: var(--gray-500);
+            font-size: 14px;
+            margin-bottom: 18px;
         }
 
         .checklist label {
             display: flex;
             align-items: flex-start;
-            gap: 10px;
-            padding: 8px 0;
+            gap: 12px;
+            padding: 10px 12px;
             cursor: pointer;
             color: var(--gray-700);
             font-size: 15px;
+            border-radius: 10px;
+            transition: background 0.15s;
+        }
+
+        .checklist label:hover {
+            background: var(--gray-50);
         }
 
         .checklist input[type="checkbox"] {
-            width: 20px;
-            height: 20px;
-            margin-top: 2px;
+            width: 22px;
+            height: 22px;
+            margin-top: 1px;
             flex-shrink: 0;
             accent-color: var(--success);
+            cursor: pointer;
         }
 
+        .checklist-divider {
+            height: 1px;
+            background: var(--gray-100);
+            margin: 4px 0;
+        }
+
+        /* FAQ */
+        .faq-section {
+            background: white;
+            border-radius: var(--radius);
+            padding: 28px;
+            margin-top: 24px;
+            border: 1px solid var(--gray-200);
+            box-shadow: var(--shadow);
+        }
+
+        .faq-section h2 {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: var(--gray-900);
+        }
+
+        .faq-item {
+            border-bottom: 1px solid var(--gray-100);
+            padding: 16px 0;
+        }
+
+        .faq-item:last-child {
+            border-bottom: none;
+            padding-bottom: 0;
+        }
+
+        .faq-item summary {
+            font-weight: 600;
+            font-size: 15px;
+            color: var(--gray-800);
+            cursor: pointer;
+            list-style: none;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .faq-item summary::before {
+            content: '+';
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 24px;
+            height: 24px;
+            border-radius: 6px;
+            background: var(--gray-100);
+            color: var(--gray-500);
+            font-size: 16px;
+            font-weight: 700;
+            flex-shrink: 0;
+            transition: all 0.2s;
+        }
+
+        .faq-item[open] summary::before {
+            content: '−';
+            background: var(--primary-light);
+            color: var(--primary);
+        }
+
+        .faq-item summary::-webkit-details-marker { display: none; }
+
+        .faq-answer {
+            padding: 12px 0 4px 34px;
+            color: var(--gray-600);
+            font-size: 14px;
+            line-height: 1.7;
+        }
+
+        /* Support */
         .support {
             background: white;
-            border-radius: 12px;
-            padding: 24px;
+            border-radius: var(--radius);
+            padding: 28px;
             margin-top: 24px;
             border: 1px solid var(--gray-200);
             text-align: center;
+            box-shadow: var(--shadow);
         }
 
         .support h3 {
             margin-bottom: 8px;
             color: var(--gray-900);
+            font-size: 18px;
         }
 
         .support p {
             color: var(--gray-500);
             font-size: 14px;
+            margin-bottom: 4px;
         }
 
-        .support a {
-            color: var(--primary);
+        .support-contacts {
+            display: flex;
+            gap: 16px;
+            justify-content: center;
+            margin-top: 16px;
+            flex-wrap: wrap;
+        }
+
+        .support-contact {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--gray-50);
+            border: 1px solid var(--gray-200);
+            padding: 10px 18px;
+            border-radius: 12px;
             text-decoration: none;
-            font-weight: 600;
+            color: var(--gray-700);
+            font-size: 14px;
+            font-weight: 500;
+            transition: all 0.15s;
         }
 
+        .support-contact:hover {
+            background: var(--primary-light);
+            border-color: var(--primary);
+            color: var(--primary-dark);
+        }
+
+        /* Footer */
         .footer {
             text-align: center;
             padding: 32px 20px;
+            color: var(--gray-400);
+            font-size: 12px;
+        }
+
+        /* Form fields in mockups */
+        .mock-field {
+            background: var(--gray-50);
+            border: 1.5px solid var(--gray-200);
+            border-radius: 8px;
+            padding: 10px 14px;
+            margin-bottom: 10px;
+            font-size: 14px;
             color: var(--gray-500);
-            font-size: 13px;
         }
 
-        .divider {
-            height: 1px;
-            background: var(--gray-200);
-            margin: 24px 0;
+        .mock-field.filled {
+            border-color: var(--primary);
+            color: var(--gray-800);
+            background: white;
         }
 
+        .mock-field-label {
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--gray-500);
+            margin-bottom: 4px;
+        }
+
+        /* Numbered list in visual */
+        .visual-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .visual-list li {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            padding: 8px 0;
+            font-size: 14px;
+            color: var(--gray-700);
+        }
+
+        .visual-list li .num {
+            background: var(--primary-light);
+            color: var(--primary-dark);
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 12px;
+            flex-shrink: 0;
+        }
+
+        /* QR code placeholder */
+        .qr-placeholder {
+            width: 120px;
+            height: 120px;
+            background: white;
+            border: 2px solid var(--gray-300);
+            border-radius: 8px;
+            margin: 12px auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .qr-placeholder::before {
+            content: '';
+            width: 80px;
+            height: 80px;
+            background:
+                linear-gradient(var(--gray-800) 2px, transparent 2px),
+                linear-gradient(90deg, var(--gray-800) 2px, transparent 2px);
+            background-size: 10px 10px;
+            opacity: 0.3;
+            border-radius: 4px;
+        }
+
+        .qr-label {
+            text-align: center;
+            font-size: 12px;
+            color: var(--gray-400);
+            margin-top: 4px;
+        }
+
+        /* Responsive */
         @media (max-width: 480px) {
-            .header h1 {
-                font-size: 22px;
-            }
-            .phase-title {
-                font-size: 18px;
-            }
-            .step {
-                padding: 16px 18px;
-            }
-            .container {
-                padding: 20px 16px;
-            }
+            .header h1 { font-size: 22px; }
+            .header { padding: 36px 16px 44px; }
+            .phase-meta .phase-title { font-size: 18px; }
+            .step { padding: 20px 18px; }
+            .container { padding: 20px 14px; }
+            .support-contacts { flex-direction: column; align-items: center; }
+            .progress-time { display: none; }
+            .phone-mockup { max-width: 260px; }
         }
     </style>
 </head>
 <body>
+
+    <!-- ===== HEADER ===== -->
     <div class="header">
-        <h1>Подключение MAX к Teletype</h1>
-        <p>Пошаговая инструкция для старшего диспетчера</p>
-        <div class="badge">Маршал &bull; Инструкция v1.0</div>
+        <div class="header-content">
+            <div class="header-emoji">&#128075;</div>
+            <h1>Добро пожаловать в Teletype!</h1>
+            <p>Пошаговая инструкция для диспетчеров</p>
+            <div class="badge">Маршал &bull; Инструкция v2.0</div>
+        </div>
     </div>
 
     <div class="container">
-        <div class="overview">
-            <h2>Что мы делаем и зачем</h2>
-            <p>Мы подключаем мессенджер <strong>MAX</strong> к платформе <strong>Teletype</strong>, чтобы сообщения из групповых диспетчерских чатов MAX автоматически попадали в единое окно Teletype. Это позволит:</p>
-            <ul>
-                <li>Видеть все сообщения из MAX-чатов в Teletype</li>
-                <li>Отвечать клиентам и партнёрам прямо из Teletype</li>
-                <li>Контролировать коммуникацию из одного места</li>
-            </ul>
-            <div class="time-estimate">
-                &#9200; Примерное время: 15–20 минут
+
+        <!-- ===== WELCOME ===== -->
+        <div class="welcome-card">
+            <h2>&#128218; Что такое Teletype и зачем он нужен?</h2>
+            <p><strong>Teletype</strong> — это единое окно для всех сообщений. Вместо того, чтобы переключаться между Telegram, MAX и другими мессенджерами, вы будете видеть <strong>все сообщения в одном месте</strong> и отвечать на них оттуда же.</p>
+            <p>Это сэкономит время и поможет не пропустить важные сообщения от партнёров и водителей.</p>
+            <div class="friendly-note">
+                <strong>&#128153; Не переживайте!</strong> Подключение занимает всего 15 минут, а инструкция написана максимально подробно. Если что-то непонятно — внизу есть контакты для помощи.
             </div>
         </div>
 
-        <div class="overview">
-            <h2>Что понадобится</h2>
-            <ul>
-                <li>Телефон с установленным приложением <strong>MAX</strong> (скачать из App Store / Google Play / RuStore)</li>
-                <li>Аккаунт в <strong>Teletype</strong> с правами администратора</li>
-                <li>Права администратора в диспетчерском групповом чате MAX</li>
-            </ul>
+        <!-- ===== PROGRESS TRACKER ===== -->
+        <div class="progress-tracker">
+            <h3>&#127919; Ваш план подключения</h3>
+            <div class="progress-steps">
+                <div class="progress-step">
+                    <div class="progress-dot step-email">1</div>
+                    <div class="progress-info">
+                        <h4>Отправить email</h4>
+                        <p>Пришлите свою почту в рабочий чат</p>
+                    </div>
+                    <div class="progress-time">1 мин</div>
+                </div>
+                <div class="progress-step">
+                    <div class="progress-dot step-register">2</div>
+                    <div class="progress-info">
+                        <h4>Регистрация</h4>
+                        <p>Создайте аккаунт по ссылке из письма</p>
+                    </div>
+                    <div class="progress-time">3 мин</div>
+                </div>
+                <div class="progress-step">
+                    <div class="progress-dot step-telegram">3</div>
+                    <div class="progress-info">
+                        <h4>Подключить Telegram</h4>
+                        <p>Привяжите свой Telegram к Teletype</p>
+                    </div>
+                    <div class="progress-time">5 мин</div>
+                </div>
+                <div class="progress-step">
+                    <div class="progress-dot step-max">4</div>
+                    <div class="progress-info">
+                        <h4>Подключить MAX</h4>
+                        <p>Привяжите мессенджер MAX</p>
+                    </div>
+                    <div class="progress-time">5 мин</div>
+                </div>
+            </div>
         </div>
 
-        <!-- ===== ФАЗА 1 ===== -->
+        <!-- ====================================================== -->
+        <!-- ===== ШАГ 1: ОТПРАВИТЬ EMAIL ===== -->
+        <!-- ====================================================== -->
         <div class="phase">
             <div class="phase-header">
-                <div class="phase-number">A</div>
-                <div class="phase-title">Создание бота в MAX</div>
+                <div class="phase-icon email-phase">&#9993;&#65039;</div>
+                <div class="phase-meta">
+                    <div class="phase-label">Шаг 1 из 4</div>
+                    <div class="phase-title">Отправьте свой email</div>
+                </div>
             </div>
 
             <div class="step">
-                <div class="step-number">1</div>
-                <h3>Откройте приложение MAX на телефоне</h3>
-                <p>Запустите мессенджер MAX. Если приложение не установлено, скачайте его:</p>
-                <ul style="margin-left: 20px; color: var(--gray-700); margin-top: 8px;">
-                    <li>App Store (iPhone)</li>
-                    <li>Google Play или RuStore (Android)</li>
+                <div class="step-badge">1</div>
+                <h3>Напишите свой email в рабочий чат</h3>
+                <p>Отправьте свой <strong>email-адрес</strong> (электронную почту) в рабочий чат, куда вас попросили. Администратор отправит вам приглашение на эту почту.</p>
+
+                <div class="visual-demo">
+                    <div class="demo-label">Как это выглядит в чате</div>
+                    <div class="phone-mockup">
+                        <div class="phone-notch"><div class="phone-notch-inner"></div></div>
+                        <div class="phone-screen">
+                            <div style="text-align: center; font-size: 12px; color: var(--gray-400); margin-bottom: 12px;">Рабочий чат Маршал</div>
+                            <div class="chat-bubble">Коллеги, напишите свои email для подключения к Teletype &#128071;</div>
+                            <div class="chat-bubble outgoing">ivanova.marina@mail.ru</div>
+                            <div style="text-align: right; font-size: 11px; color: var(--gray-400); margin-top: 4px;">&#10003;&#10003; Отправлено</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="alert alert-info">
+                    <strong>&#128161; Какой email подойдёт?</strong>
+                    Любой, которым вы пользуетесь: mail.ru, yandex.ru, gmail.com — не важно. Главное, чтобы вы могли зайти в эту почту и прочитать письмо.
+                </div>
+            </div>
+
+            <div class="connector"><div class="arrow"></div></div>
+
+            <div class="step">
+                <div class="step-badge">2</div>
+                <h3>Дождитесь приглашения</h3>
+                <p>Администратор увидит ваш email и отправит приглашение. <strong>Письмо придёт в течение нескольких минут.</strong></p>
+                <p>Если письмо не пришло — проверьте папку <strong>«Спам»</strong> или <strong>«Нежелательная почта»</strong>.</p>
+
+                <div class="alert alert-tip">
+                    <strong>&#128073; Подсказка</strong>
+                    Пока ждёте письмо — можно перейти к шагу 4 (подготовка MAX), чтобы не терять время.
+                </div>
+            </div>
+
+            <div class="celebration">
+                <div class="emoji-big">&#9993;&#65039;</div>
+                <h3>Шаг 1 готов!</h3>
+                <p>Email отправлен — переходим к регистрации</p>
+            </div>
+        </div>
+
+        <!-- ====================================================== -->
+        <!-- ===== ШАГ 2: РЕГИСТРАЦИЯ В TELETYPE ===== -->
+        <!-- ====================================================== -->
+        <div class="phase">
+            <div class="phase-header">
+                <div class="phase-icon register-phase">&#128100;</div>
+                <div class="phase-meta">
+                    <div class="phase-label">Шаг 2 из 4</div>
+                    <div class="phase-title">Регистрация в Teletype</div>
+                </div>
+            </div>
+
+            <div class="step">
+                <div class="step-badge green">1</div>
+                <h3>Откройте письмо-приглашение</h3>
+                <p>Зайдите в свою почту и найдите письмо от <strong>Teletype</strong>. Тема письма будет связана с приглашением в проект.</p>
+
+                <div class="visual-demo">
+                    <div class="demo-label">Как выглядит письмо</div>
+                    <div class="email-mockup">
+                        <div class="email-header-bar">
+                            <div class="email-from">От: Teletype App &lt;noreply@teletype.app&gt;</div>
+                            <div class="email-subject">&#128233; Приглашение в проект Teletype</div>
+                        </div>
+                        <div class="email-body">
+                            <p style="font-size: 14px; color: var(--gray-700); margin-bottom: 12px;">Здравствуйте!</p>
+                            <p style="font-size: 14px; color: var(--gray-700); margin-bottom: 16px;">Вас пригласили присоединиться к проекту в Teletype App.</p>
+                            <div style="text-align: center; margin: 20px 0;">
+                                <div class="btn-cta green" style="animation: pulse 2s ease-in-out infinite;">&#128073; Присоединиться к проекту</div>
+                            </div>
+                            <div class="pointer-arrow" style="justify-content: center; display: flex; margin-top: 8px;">&#8593;&#8593;&#8593; Нажмите эту кнопку!</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="connector"><div class="arrow"></div></div>
+
+            <div class="step">
+                <div class="step-badge green">2</div>
+                <h3>Нажмите кнопку «Присоединиться к проекту»</h3>
+                <p>В письме будет большая кнопка — нажмите на неё. Откроется страница регистрации в браузере.</p>
+
+                <div class="alert alert-warning">
+                    <strong>&#9888;&#65039; Не нашли письмо?</strong>
+                    Проверьте папку <strong>«Спам»</strong>. Если и там нет — напишите об этом в рабочий чат, администратор отправит приглашение повторно.
+                </div>
+            </div>
+
+            <div class="connector"><div class="arrow"></div></div>
+
+            <div class="step">
+                <div class="step-badge green">3</div>
+                <h3>Заполните форму регистрации</h3>
+                <p>На странице регистрации нужно заполнить <strong>всего 3 поля</strong>:</p>
+
+                <div class="visual-demo">
+                    <div class="demo-label">Форма регистрации</div>
+                    <div class="browser-mockup">
+                        <div class="browser-bar">
+                            <div class="browser-dots"><span></span><span></span><span></span></div>
+                            <div class="browser-url">teletype.app/register</div>
+                        </div>
+                        <div class="browser-content">
+                            <div style="text-align: center; margin-bottom: 16px;">
+                                <strong style="font-size: 18px; color: var(--gray-900);">Создание аккаунта</strong>
+                            </div>
+
+                            <div class="mock-field-label">Имя <span style="color: var(--danger);">*</span></div>
+                            <div class="mock-field filled">Марина</div>
+
+                            <div class="mock-field-label">Фамилия <span style="color: var(--danger);">*</span></div>
+                            <div class="mock-field filled">Иванова</div>
+
+                            <div class="mock-field-label">Пароль <span style="color: var(--danger);">*</span></div>
+                            <div class="mock-field filled">&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;</div>
+
+                            <div style="text-align: center; margin-top: 16px;">
+                                <div class="btn-cta green">Зарегистрироваться</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="alert alert-tip">
+                    <strong>&#128221; Что писать в полях:</strong>
+                    <br>&#8226; <strong>Имя</strong> — ваше настоящее имя (его будут видеть коллеги в Teletype)
+                    <br>&#8226; <strong>Фамилия</strong> — ваша фамилия
+                    <br>&#8226; <strong>Пароль</strong> — придумайте надёжный пароль (запишите его, чтобы не забыть!)
+                </div>
+
+                <div class="alert alert-info">
+                    <strong>&#128161; Телефон вводить НЕ нужно!</strong>
+                    При регистрации оператора телефон не запрашивается. Нужны только имя, фамилия и пароль. Email система уже знает из приглашения.
+                </div>
+            </div>
+
+            <div class="connector"><div class="arrow"></div></div>
+
+            <div class="step">
+                <div class="step-badge green">4</div>
+                <h3>Готово — вы в системе!</h3>
+                <p>После регистрации вы сразу попадёте в панель управления Teletype. Это ваше рабочее место, где будут видны все сообщения.</p>
+
+                <div class="visual-demo">
+                    <div class="demo-label">Ваша панель Teletype</div>
+                    <div class="browser-mockup">
+                        <div class="browser-bar">
+                            <div class="browser-dots"><span></span><span></span><span></span></div>
+                            <div class="browser-url">marshalaitech.teletype.app</div>
+                        </div>
+                        <div class="browser-content" style="display: flex; gap: 12px; min-height: 120px;">
+                            <div style="width: 180px; border-right: 1px solid var(--gray-200); padding-right: 12px; font-size: 13px;">
+                                <div style="font-weight: 600; color: var(--gray-900); margin-bottom: 8px;">&#128172; Диалоги</div>
+                                <div style="color: var(--gray-400); font-style: italic; font-size: 12px;">Пока пусто — скоро тут появятся сообщения!</div>
+                            </div>
+                            <div style="flex: 1; display: flex; align-items: center; justify-content: center;">
+                                <div style="text-align: center; color: var(--gray-400); font-size: 13px;">
+                                    &#128588;<br>Выберите диалог<br>из списка слева
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="alert alert-friendly">
+                    <strong>&#128140; Совет: включите уведомления!</strong>
+                    Чтобы не пропускать новые сообщения, в левом меню нажмите <strong>«Push-уведомления»</strong> &rarr; <strong>«Включить уведомления»</strong>. Браузер спросит разрешение — нажмите <strong>«Разрешить»</strong>.
+                </div>
+            </div>
+
+            <div class="celebration">
+                <div class="emoji-big">&#127881;</div>
+                <h3>Шаг 2 готов!</h3>
+                <p>Аккаунт создан — теперь подключаем мессенджеры</p>
+            </div>
+        </div>
+
+        <!-- ====================================================== -->
+        <!-- ===== ШАГ 3: ПОДКЛЮЧЕНИЕ TELEGRAM ===== -->
+        <!-- ====================================================== -->
+        <div class="phase">
+            <div class="phase-header">
+                <div class="phase-icon telegram-phase">&#9992;&#65039;</div>
+                <div class="phase-meta">
+                    <div class="phase-label">Шаг 3 из 4</div>
+                    <div class="phase-title">Подключение Telegram</div>
+                </div>
+            </div>
+
+            <div class="step">
+                <div class="step-badge blue">0</div>
+                <h3>Как будет происходить подключение</h3>
+                <p>Администратор отправит вам <strong>специальную ссылку</strong> в личные сообщения или в рабочий чат. По этой ссылке вы подключите свой Telegram к Teletype — <strong>без входа в настройки панели</strong>.</p>
+
+                <div class="alert alert-warning">
+                    <strong>&#9200; Ссылка действует 3 часа!</strong>
+                    После получения ссылки выполните подключение как можно скорее. Если ссылка перестала работать — попросите администратора отправить новую.
+                </div>
+            </div>
+
+            <div class="connector"><div class="arrow"></div></div>
+
+            <div class="step">
+                <div class="step-badge blue">1</div>
+                <h3>Откройте ссылку в браузере</h3>
+                <p>Нажмите на ссылку, которую получили от администратора. Она откроется в браузере.</p>
+                <p>Вы увидите страницу с двумя вариантами подключения:</p>
+
+                <div class="visual-demo">
+                    <div class="demo-label">Страница подключения</div>
+                    <div class="browser-mockup">
+                        <div class="browser-bar">
+                            <div class="browser-dots"><span></span><span></span><span></span></div>
+                            <div class="browser-url">teletype.app/connect/telegram/...</div>
+                        </div>
+                        <div class="browser-content" style="text-align: center;">
+                            <strong style="font-size: 16px; color: var(--gray-900);">Подключение Telegram</strong>
+                            <p style="font-size: 13px; color: var(--gray-500); margin: 8px 0 16px;">Выберите способ подключения:</p>
+                            <div style="display: flex; gap: 12px; justify-content: center; flex-wrap: wrap;">
+                                <div style="border: 2px solid var(--primary); border-radius: 12px; padding: 16px; width: 140px; cursor: pointer; background: var(--primary-bg);">
+                                    <div style="font-size: 28px; margin-bottom: 6px;">&#128241;</div>
+                                    <div style="font-weight: 600; font-size: 13px; color: var(--primary-dark);">По номеру<br>телефона</div>
+                                    <div class="pointer-arrow" style="margin-top: 6px; justify-content: center;">&#8593; рекомендуем</div>
+                                </div>
+                                <div style="border: 2px solid var(--gray-200); border-radius: 12px; padding: 16px; width: 140px;">
+                                    <div style="font-size: 28px; margin-bottom: 6px;">&#128247;</div>
+                                    <div style="font-weight: 600; font-size: 13px; color: var(--gray-600);">По QR-коду</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="divider-text">Вариант A: по номеру телефона (проще)</div>
+
+            <div class="step">
+                <div class="step-badge blue">2а</div>
+                <h3>Вариант A: Подключение по номеру телефона</h3>
+                <p>Выберите <strong>«По номеру телефона»</strong> и введите свой номер телефона — тот, на который зарегистрирован ваш Telegram.</p>
+
+                <div class="visual-demo">
+                    <div class="demo-label">Ввод номера</div>
+                    <div class="browser-mockup">
+                        <div class="browser-bar">
+                            <div class="browser-dots"><span></span><span></span><span></span></div>
+                            <div class="browser-url">teletype.app/connect/telegram/...</div>
+                        </div>
+                        <div class="browser-content" style="max-width: 320px; margin: 0 auto;">
+                            <div class="mock-field-label">Номер телефона</div>
+                            <div class="mock-field filled">+7 (912) 345-67-89</div>
+                            <div style="text-align: center; margin-top: 12px;">
+                                <div class="btn-cta blue">Отправить код</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="connector"><div class="arrow"></div></div>
+
+            <div class="step">
+                <div class="step-badge blue">3а</div>
+                <h3>Введите код подтверждения</h3>
+                <p>В ваш <strong>Telegram на телефоне</strong> придёт PIN-код (числовой код). Введите его на странице в браузере.</p>
+
+                <div class="visual-demo">
+                    <div class="demo-label">Код придёт в Telegram на телефоне</div>
+                    <div style="display: flex; gap: 16px; align-items: center; justify-content: center; flex-wrap: wrap;">
+                        <div class="phone-mockup" style="max-width: 200px;">
+                            <div class="phone-notch"><div class="phone-notch-inner"></div></div>
+                            <div class="phone-screen" style="padding: 12px; text-align: center;">
+                                <div style="font-size: 12px; color: var(--gray-500); margin-bottom: 8px;">Telegram</div>
+                                <div class="chat-bubble" style="font-size: 13px; max-width: 100%; text-align: left;">
+                                    Код для входа: <strong style="font-size: 18px; color: var(--primary);">47&thinsp;293</strong>
+                                    <br><span style="font-size: 11px; color: var(--gray-500);">Никому не сообщайте этот код</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div style="font-size: 32px; color: var(--primary); animation: pointLeft 1s ease-in-out infinite;">&#10145;&#65039;</div>
+                        <div style="text-align: center;">
+                            <div class="mock-field filled" style="width: 160px; text-align: center; font-size: 24px; letter-spacing: 8px; font-weight: 700;">47293</div>
+                            <div style="font-size: 12px; color: var(--gray-500); margin-top: 4px;">Введите код в браузере</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="alert alert-warning">
+                    <strong>&#128274; Код — только для вас!</strong>
+                    Никому не сообщайте этот код. Он нужен только для подключения Teletype к вашему Telegram.
+                </div>
+            </div>
+
+            <div class="divider-text">Вариант Б: по QR-коду (альтернатива)</div>
+
+            <div class="step">
+                <div class="step-badge blue">2б</div>
+                <h3>Вариант Б: Подключение через QR-код</h3>
+                <p>Если не хотите вводить номер, можно отсканировать QR-код:</p>
+
+                <ol class="visual-list">
+                    <li><span class="num">1</span> Выберите <strong>«По QR-коду»</strong> — на экране появится QR-код</li>
+                    <li><span class="num">2</span> Откройте <strong>Telegram</strong> на телефоне</li>
+                    <li><span class="num">3</span> Перейдите: <strong>Настройки</strong> &rarr; <strong>Устройства</strong> &rarr; <strong>«Подключить устройство»</strong></li>
+                    <li><span class="num">4</span> Наведите камеру телефона на QR-код в браузере</li>
+                    <li><span class="num">5</span> Подтвердите подключение</li>
+                </ol>
+
+                <div class="visual-demo">
+                    <div class="demo-label">QR-код на экране компьютера</div>
+                    <div style="text-align: center;">
+                        <div class="qr-placeholder"></div>
+                        <div class="qr-label">Наведите камеру телефона сюда</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="divider-text">Завершение подключения Telegram</div>
+
+            <div class="step">
+                <div class="step-badge blue">4</div>
+                <h3>Нажмите «Завершить подключение»</h3>
+                <p>После ввода кода (или сканирования QR) нажмите кнопку <strong>«Завершить подключение»</strong>.</p>
+                <p>Teletype автоматически подгрузит <strong>ваши последние 10 диалогов</strong> — это нормально!</p>
+
+                <div class="alert alert-tip">
+                    <strong>&#9989; Как проверить, что всё работает</strong>
+                    Попросите коллегу отправить вам сообщение в Telegram. Оно должно появиться в разделе <strong>«Диалоги»</strong> в Teletype в течение нескольких секунд.
+                </div>
+            </div>
+
+            <div class="celebration">
+                <div class="emoji-big">&#128242;</div>
+                <h3>Telegram подключён!</h3>
+                <p>Теперь сообщения из Telegram видны в Teletype. Осталось подключить MAX.</p>
+            </div>
+        </div>
+
+        <!-- ====================================================== -->
+        <!-- ===== ШАГ 4: ПОДКЛЮЧЕНИЕ MAX ===== -->
+        <!-- ====================================================== -->
+        <div class="phase">
+            <div class="phase-header">
+                <div class="phase-icon max-phase">&#128172;</div>
+                <div class="phase-meta">
+                    <div class="phase-label">Шаг 4 из 4</div>
+                    <div class="phase-title">Подключение MAX</div>
+                </div>
+            </div>
+
+            <div class="step">
+                <div class="step-badge orange">0</div>
+                <h3>Что нужно для подключения MAX</h3>
+                <p>MAX подключается через <strong>QR-код</strong> — аналогично тому, как WhatsApp Web работает на компьютере. Вам понадобится:</p>
+                <ul>
+                    <li>Телефон с установленным приложением <strong>MAX</strong></li>
+                    <li>Открытая панель Teletype в браузере на компьютере</li>
                 </ul>
+
+                <div class="alert alert-info">
+                    <strong>&#128161; Если MAX не установлен</strong>
+                    Скачайте бесплатно:
+                    <br>&#8226; <strong>iPhone:</strong> App Store &rarr; поиск «MAX»
+                    <br>&#8226; <strong>Android:</strong> Google Play или RuStore &rarr; поиск «MAX»
+                </div>
             </div>
 
             <div class="connector"><div class="arrow"></div></div>
 
             <div class="step">
-                <div class="step-number">2</div>
-                <h3>Найдите @MasterBot</h3>
-                <p>В строке поиска MAX введите:</p>
-                <div class="step-path">@MasterBot</div>
-                <p>Откройте диалог с этим ботом. Это официальный бот MAX для создания других ботов (аналог @BotFather в Telegram).</p>
-                <div class="step-visual">
-                    <div class="screen-title">Экран поиска MAX</div>
-                    <div class="screen-content">
-                        &#128269; Поиск: <span class="highlight">@MasterBot</span><br>
-                        &nbsp;&nbsp;&#9654; MasterBot — <em>официальный бот</em><br>
-                        &nbsp;&nbsp;&nbsp;&nbsp;Нажмите, чтобы открыть диалог
+                <div class="step-badge orange">1</div>
+                <h3>Откройте Teletype в браузере</h3>
+                <p>Перейдите в панель Teletype и нажмите <strong>«Добавить канал»</strong> в левом меню (или <strong>Настройки</strong> &rarr; <strong>Каналы</strong> &rarr; <strong>«+ Добавить»</strong>).</p>
+
+                <div class="visual-demo">
+                    <div class="demo-label">Левое меню Teletype</div>
+                    <div class="browser-mockup">
+                        <div class="browser-bar">
+                            <div class="browser-dots"><span></span><span></span><span></span></div>
+                            <div class="browser-url">marshalaitech.teletype.app</div>
+                        </div>
+                        <div class="browser-content" style="min-height: 100px;">
+                            <div style="font-size: 14px; line-height: 2.2;">
+                                &#128172; Диалоги<br>
+                                &#128101; Операторы<br>
+                                &#9881;&#65039; Настройки<br>
+                                <div style="margin-top: 8px;">
+                                    <span class="btn-cta" style="font-size: 13px; padding: 6px 14px;">+ Добавить канал</span>
+                                    <span class="pointer-arrow" style="margin-left: 8px;">&#8592; нажмите сюда</span>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -455,31 +1498,24 @@
             <div class="connector"><div class="arrow"></div></div>
 
             <div class="step">
-                <div class="step-number">3</div>
-                <h3>Отправьте команду /create</h3>
-                <p>В чате с MasterBot напишите:</p>
-                <div class="step-path">/create</div>
-                <p>MasterBot попросит ввести <strong>никнейм (username)</strong> для нового бота.</p>
-            </div>
+                <div class="step-badge orange">2</div>
+                <h3>Выберите «Max» (личный аккаунт)</h3>
+                <p>В списке каналов найдите блок <strong>MAX</strong> и выберите <strong>«Max»</strong> (подключение по QR-коду). Нажмите <strong>«Добавить Max в тариф»</strong>.</p>
 
-            <div class="connector"><div class="arrow"></div></div>
-
-            <div class="step">
-                <div class="step-number">4</div>
-                <h3>Придумайте никнейм бота</h3>
-                <p>Введите никнейм для бота. <strong>Требования:</strong></p>
-                <ul style="margin-left: 20px; color: var(--gray-700); margin-top: 8px;">
-                    <li>Минимум <strong>11 символов</strong></li>
-                    <li>Должен заканчиваться на <code>bot</code> или <code>_bot</code></li>
-                    <li>Только латинские буквы, цифры и подчёркивание</li>
-                    <li><strong>Нельзя изменить</strong> после создания — выбирайте сразу правильный</li>
-                </ul>
-                <div class="step-visual">
-                    <div class="screen-title">Рекомендуемые варианты</div>
-                    <div class="screen-content">
-                        <span class="highlight">marshal_dispatch_bot</span> &larr; рекомендуемый<br>
-                        <span class="highlight">marshalgroup_bot</span><br>
-                        <span class="highlight">marshal_teletype_bot</span>
+                <div class="visual-demo">
+                    <div class="demo-label">Выбор канала</div>
+                    <div style="display: flex; gap: 12px; flex-wrap: wrap; justify-content: center;">
+                        <div style="border: 2px solid var(--warm); border-radius: 12px; padding: 16px; width: 140px; background: var(--warm-light); text-align: center;">
+                            <div style="font-size: 28px; margin-bottom: 6px;">&#128172;</div>
+                            <div style="font-weight: 600; font-size: 13px; color: #c2410c;">Max</div>
+                            <div style="font-size: 11px; color: var(--gray-500); margin-top: 4px;">(по QR-коду)</div>
+                            <div class="pointer-arrow" style="margin-top: 6px; justify-content: center;">&#8593; этот!</div>
+                        </div>
+                        <div style="border: 2px solid var(--gray-200); border-radius: 12px; padding: 16px; width: 140px; text-align: center; opacity: 0.6;">
+                            <div style="font-size: 28px; margin-bottom: 6px;">&#129302;</div>
+                            <div style="font-weight: 600; font-size: 13px; color: var(--gray-500);">Max через бота</div>
+                            <div style="font-size: 11px; color: var(--gray-400); margin-top: 4px;">(для админов)</div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -487,59 +1523,36 @@
             <div class="connector"><div class="arrow"></div></div>
 
             <div class="step">
-                <div class="step-number">5</div>
-                <h3>Введите отображаемое имя бота</h3>
-                <p>MasterBot попросит указать <strong>отображаемое имя</strong> — то, как бот будет виден в чате. Например:</p>
-                <div class="step-path">Маршал Диспетчер</div>
-                <p>Максимум 16 символов. Это имя можно будет изменить позже.</p>
-            </div>
+                <div class="step-badge orange">3</div>
+                <h3>Отсканируйте QR-код приложением MAX</h3>
+                <p>На экране компьютера появится QR-код. Теперь возьмите телефон:</p>
 
-            <div class="connector"><div class="arrow"></div></div>
+                <ol class="visual-list">
+                    <li><span class="num">1</span> Откройте приложение <strong>MAX</strong> на телефоне</li>
+                    <li><span class="num">2</span> Перейдите в <strong>Профиль</strong> (иконка человечка внизу)</li>
+                    <li><span class="num">3</span> Нажмите <strong>«Устройства»</strong></li>
+                    <li><span class="num">4</span> Нажмите <strong>«Войти по QR-коду»</strong></li>
+                    <li><span class="num">5</span> Наведите камеру на QR-код в Teletype</li>
+                </ol>
 
-            <div class="step">
-                <div class="step-number">6</div>
-                <h3>Сохраните токен бота</h3>
-                <p>После создания MasterBot выдаст <strong>секретный токен</strong> — длинную строку из букв и цифр.</p>
-                <div class="warning">
-                    <strong>&#9888; Важно! Сохраните токен прямо сейчас!</strong>
-                    Скопируйте токен и отправьте его себе в «Избранное» в MAX или в заметки телефона. Этот токен понадобится на следующем этапе. Никому не показывайте токен — это пароль от бота.
-                </div>
-                <div class="step-visual">
-                    <div class="screen-title">Пример ответа от MasterBot</div>
-                    <div class="screen-content">
-                        &#9989; Бот создан!<br>
-                        Никнейм: @marshal_dispatch_bot<br>
-                        Токен: <span class="highlight">a1b2c3d4e5f6...длинная строка...</span><br><br>
-                        <em>Скопируйте токен — он нужен для подключения</em>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- ===== ФАЗА 2 ===== -->
-        <div class="phase">
-            <div class="phase-header">
-                <div class="phase-number">Б</div>
-                <div class="phase-title">Добавление бота в групповой чат</div>
-            </div>
-
-            <div class="step">
-                <div class="step-number">1</div>
-                <h3>Откройте групповой диспетчерский чат</h3>
-                <p>Перейдите в тот групповой чат MAX, к которому нужно подключить бота (например, диспетчерский чат Маршал).</p>
-            </div>
-
-            <div class="connector"><div class="arrow"></div></div>
-
-            <div class="step">
-                <div class="step-number">2</div>
-                <h3>Откройте настройки группы</h3>
-                <p>Нажмите на <strong>название группы</strong> вверху экрана, чтобы открыть информацию о чате.</p>
-                <div class="step-visual">
-                    <div class="screen-title">Верхняя панель чата</div>
-                    <div class="screen-content">
-                        &larr; <span class="highlight">&#128100; Диспетчерская Маршал</span> &#9662;<br>
-                        &nbsp;&nbsp;&nbsp;&nbsp;&#8593; нажмите на название
+                <div class="visual-demo">
+                    <div class="demo-label">На телефоне: MAX &rarr; Профиль &rarr; Устройства</div>
+                    <div style="display: flex; gap: 16px; align-items: center; justify-content: center; flex-wrap: wrap;">
+                        <div class="phone-mockup" style="max-width: 200px;">
+                            <div class="phone-notch"><div class="phone-notch-inner"></div></div>
+                            <div class="phone-screen" style="padding: 12px;">
+                                <div style="font-size: 12px; color: var(--gray-500); margin-bottom: 10px; text-align: center;">MAX &rarr; Профиль &rarr; Устройства</div>
+                                <div style="background: var(--warm-light); border-radius: 10px; padding: 12px; text-align: center; border: 2px solid var(--warm);">
+                                    <div style="font-size: 24px; margin-bottom: 4px;">&#128247;</div>
+                                    <div style="font-weight: 600; font-size: 13px; color: #c2410c;">Войти по QR-коду</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div style="font-size: 32px; color: var(--warm); animation: pointLeft 1s ease-in-out infinite;">&#10145;&#65039;</div>
+                        <div style="text-align: center;">
+                            <div class="qr-placeholder"></div>
+                            <div class="qr-label">QR-код в браузере</div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -547,216 +1560,153 @@
             <div class="connector"><div class="arrow"></div></div>
 
             <div class="step">
-                <div class="step-number">3</div>
-                <h3>Перейдите в раздел «Участники»</h3>
-                <p>В информации о группе найдите раздел <strong>«Участники»</strong> и нажмите на него.</p>
-            </div>
-
-            <div class="connector"><div class="arrow"></div></div>
-
-            <div class="step">
-                <div class="step-number">4</div>
-                <h3>Добавьте бота в группу</h3>
-                <p>Нажмите кнопку <strong>«Добавить участника»</strong> (или значок «+»). В поиске введите никнейм бота, который вы создали:</p>
-                <div class="step-path">@marshal_dispatch_bot</div>
-                <p>Выберите бота из результатов и добавьте его в группу.</p>
-            </div>
-
-            <div class="connector"><div class="arrow"></div></div>
-
-            <div class="step">
-                <div class="step-number">5</div>
-                <h3>Назначьте бота администратором группы</h3>
-                <p>Это <strong>обязательный шаг</strong> — без прав администратора бот не сможет читать все сообщения группы.</p>
-                <div class="step-visual">
-                    <div class="screen-title">Как назначить администратором</div>
-                    <div class="screen-content">
-                        1. В списке участников найдите бота<br>
-                        2. Нажмите на имя бота<br>
-                        3. Выберите <span class="highlight">«Назначить администратором»</span><br>
-                        4. Подтвердите действие
-                    </div>
-                </div>
-                <div class="warning">
-                    <strong>&#9888; Без этого шага бот не будет работать!</strong>
-                    Бот MAX получает сообщения из группового чата только при наличии прав администратора. Пропустить этот шаг нельзя.
-                </div>
-            </div>
-        </div>
-
-        <!-- ===== ФАЗА 3 ===== -->
-        <div class="phase">
-            <div class="phase-header">
-                <div class="phase-number">В</div>
-                <div class="phase-title">Подключение бота к Teletype</div>
-            </div>
-
-            <div class="step">
-                <div class="step-number">1</div>
-                <h3>Откройте панель управления Teletype</h3>
-                <p>Перейдите в <strong>Teletype</strong> на компьютере и войдите в панель управления вашего проекта.</p>
-                <div class="step-path">teletype.app &rarr; войти в аккаунт &rarr; выбрать проект</div>
-            </div>
-
-            <div class="connector"><div class="arrow"></div></div>
-
-            <div class="step">
-                <div class="step-number">2</div>
-                <h3>Добавьте новый канал</h3>
-                <p>В левом меню или в настройках проекта нажмите <strong>«Добавить канал»</strong>.</p>
-                <div class="step-visual">
-                    <div class="screen-title">Левое меню Teletype</div>
-                    <div class="screen-content">
-                        &#128172; Диалоги<br>
-                        &#128101; Операторы<br>
-                        &#9881; Настройки<br>
-                        <span class="btn">+ Добавить канал</span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="connector"><div class="arrow"></div></div>
-
-            <div class="step">
-                <div class="step-number">3</div>
-                <h3>Выберите «Max через бота»</h3>
-                <p>В списке доступных каналов найдите блок <strong>MAX</strong> и выберите вариант <strong>«Max через бота»</strong> (не «Max по QR-коду»).</p>
-                <div class="info">
-                    <strong>&#128161; Почему «через бота», а не «по QR-коду»?</strong>
-                    Подключение через бота стабильнее: оно не привязано к конкретному телефону и не отключится, если кто-то выйдет из аккаунта. Бот работает независимо.
-                </div>
-            </div>
-
-            <div class="connector"><div class="arrow"></div></div>
-
-            <div class="step">
-                <div class="step-number">4</div>
-                <h3>Добавьте MAX-бота в тариф</h3>
-                <p>Нажмите кнопку <strong>«Добавить Max через бота в тариф»</strong>. Teletype подключит канал к вашему текущему тарифу.</p>
-                <div class="tip">
-                    <strong>&#128178; О стоимости</strong>
-                    Стоимость канала MAX зависит от тарифа. Если у вас уже оплачен Teletype, MAX-бот будет добавлен к текущему плану. При необходимости Teletype покажет доплату.
-                </div>
-            </div>
-
-            <div class="connector"><div class="arrow"></div></div>
-
-            <div class="step">
-                <div class="step-number">5</div>
-                <h3>Вставьте токен бота</h3>
-                <p>Teletype покажет поле для ввода токена. Вставьте <strong>токен</strong>, который вы получили от @MasterBot на этапе А.</p>
-                <div class="step-visual">
-                    <div class="screen-title">Окно подключения в Teletype</div>
-                    <div class="screen-content">
-                        Секретный токен бота:<br>
-                        &#9484;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9488;<br>
-                        &#9474; <span class="highlight">вставьте токен сюда</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&#9474;<br>
-                        &#9492;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9496;<br><br>
-                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="btn">Создать</span>
-                    </div>
-                </div>
-                <p>Нажмите <strong>«Создать»</strong>.</p>
-            </div>
-
-            <div class="connector"><div class="arrow"></div></div>
-
-            <div class="step">
-                <div class="step-number">6</div>
-                <h3>Дайте название каналу</h3>
-                <p>Teletype предложит задать <strong>название канала</strong>. Рекомендуем назвать понятно, например:</p>
-                <div class="step-path">MAX — Диспетчерская</div>
-                <p>Это название будет видно только операторам в Teletype, клиенты его не увидят.</p>
-            </div>
-
-            <div class="connector"><div class="arrow"></div></div>
-
-            <div class="step">
-                <div class="step-number">7</div>
+                <div class="step-badge orange">4</div>
                 <h3>Завершите подключение</h3>
-                <p>Нажмите <strong>«Завершить подключение»</strong>. Канал MAX теперь подключён к Teletype!</p>
-                <div class="tip">
-                    <strong>&#9989; Готово!</strong>
-                    Все новые сообщения из группового чата MAX, где добавлен бот, теперь будут появляться в панели Teletype. Операторы смогут видеть и отвечать на них.
+                <p>После сканирования QR-кода нажмите <strong>«Завершить подключение»</strong> в Teletype.</p>
+                <p>При желании можно задать <strong>название канала</strong> (например, «MAX — рабочий»). Это название видно только вам и коллегам в Teletype.</p>
+
+                <div class="alert alert-tip">
+                    <strong>&#9989; Как проверить, что всё работает</strong>
+                    Попросите коллегу написать вам в MAX. Сообщение должно появиться в <strong>«Диалогах»</strong> Teletype.
                 </div>
             </div>
-        </div>
 
-        <!-- ===== ПРОВЕРКА ===== -->
-        <div class="phase">
-            <div class="phase-header">
-                <div class="phase-number">Г</div>
-                <div class="phase-title">Проверка работы</div>
-            </div>
-
-            <div class="step">
-                <div class="step-number">1</div>
-                <h3>Отправьте тестовое сообщение</h3>
-                <p>Попросите кого-нибудь из коллег написать сообщение в групповой чат MAX, где добавлен бот.</p>
-            </div>
-
-            <div class="connector"><div class="arrow"></div></div>
-
-            <div class="step">
-                <div class="step-number">2</div>
-                <h3>Проверьте в Teletype</h3>
-                <p>Перейдите в раздел <strong>«Диалоги»</strong> в Teletype. Новое сообщение должно появиться в течение нескольких секунд с пометкой канала MAX.</p>
-            </div>
-
-            <div class="connector"><div class="arrow"></div></div>
-
-            <div class="step">
-                <div class="step-number">3</div>
-                <h3>Попробуйте ответить</h3>
-                <p>Ответьте на сообщение из Teletype и проверьте, что ответ пришёл в групповой чат MAX.</p>
+            <div class="celebration">
+                <div class="emoji-big">&#127942;</div>
+                <h3>Всё готово! Поздравляем!</h3>
+                <p>Telegram и MAX подключены к Teletype. Теперь все сообщения в одном окне!</p>
             </div>
         </div>
 
-        <div class="divider"></div>
-
-        <!-- ===== ЧЕКЛИСТ ===== -->
+        <!-- ====================================================== -->
+        <!-- ===== ФИНАЛЬНЫЙ ЧЕКЛИСТ ===== -->
+        <!-- ====================================================== -->
         <div class="checklist">
-            <h2>&#9745; Финальный чеклист</h2>
-            <p style="color: var(--gray-500); margin-bottom: 16px; font-size: 14px;">Отметьте каждый пункт после выполнения:</p>
-            <label><input type="checkbox"> Бот создан через @MasterBot в MAX</label>
-            <label><input type="checkbox"> Токен бота сохранён в надёжном месте</label>
-            <label><input type="checkbox"> Бот добавлен в диспетчерский групповой чат</label>
-            <label><input type="checkbox"> Бот назначен администратором группы</label>
-            <label><input type="checkbox"> В Teletype добавлен канал «Max через бота»</label>
-            <label><input type="checkbox"> Токен вставлен в Teletype и канал создан</label>
-            <label><input type="checkbox"> Тестовое сообщение из MAX видно в Teletype</label>
-            <label><input type="checkbox"> Ответ из Teletype приходит в MAX</label>
+            <h2>&#9745;&#65039; Финальный чеклист</h2>
+            <p class="checklist-subtitle">Отмечайте каждый пункт после выполнения:</p>
+
+            <label><input type="checkbox"> <span>Отправила свой email в рабочий чат</span></label>
+            <div class="checklist-divider"></div>
+            <label><input type="checkbox"> <span>Получила письмо-приглашение от Teletype</span></label>
+            <label><input type="checkbox"> <span>Прошла регистрацию (имя, фамилия, пароль)</span></label>
+            <label><input type="checkbox"> <span>Вижу панель Teletype в браузере</span></label>
+            <div class="checklist-divider"></div>
+            <label><input type="checkbox"> <span>Подключила свой Telegram (по номеру или QR-коду)</span></label>
+            <label><input type="checkbox"> <span>Тестовое сообщение из Telegram видно в Teletype</span></label>
+            <div class="checklist-divider"></div>
+            <label><input type="checkbox"> <span>Установила приложение MAX на телефон</span></label>
+            <label><input type="checkbox"> <span>Подключила MAX по QR-коду</span></label>
+            <label><input type="checkbox"> <span>Тестовое сообщение из MAX видно в Teletype</span></label>
+            <div class="checklist-divider"></div>
+            <label><input type="checkbox"> <span>Включила push-уведомления в Teletype</span></label>
         </div>
 
-        <!-- ===== ЧАСТЫЕ ВОПРОСЫ ===== -->
-        <div class="overview" style="margin-top: 24px;">
-            <h2>Частые вопросы</h2>
+        <!-- ====================================================== -->
+        <!-- ===== FAQ ===== -->
+        <!-- ====================================================== -->
+        <div class="faq-section">
+            <h2>&#128172; Частые вопросы</h2>
 
-            <div class="divider"></div>
+            <details class="faq-item">
+                <summary>Письмо-приглашение не пришло — что делать?</summary>
+                <div class="faq-answer">
+                    <p>1. Проверьте папку <strong>«Спам»</strong> (или «Нежелательная почта»)</p>
+                    <p>2. Убедитесь, что вы правильно написали email в чате (без опечаток)</p>
+                    <p>3. Подождите 5-10 минут — иногда письма приходят с задержкой</p>
+                    <p>4. Напишите в рабочий чат, что письмо не пришло — администратор отправит повторно</p>
+                </div>
+            </details>
 
-            <p><strong>Бот не появляется в поиске при добавлении в группу</strong></p>
-            <p style="color: var(--gray-500); margin-bottom: 16px;">Убедитесь, что вводите полный никнейм бота с @. Если бот только что создан, подождите 1-2 минуты — он может индексироваться.</p>
+            <details class="faq-item">
+                <summary>Я забыла пароль — как войти?</summary>
+                <div class="faq-answer">
+                    <p>На странице входа в Teletype нажмите <strong>«Забыли пароль?»</strong>. На вашу почту придёт ссылка для сброса пароля. Перейдите по ней и придумайте новый пароль.</p>
+                </div>
+            </details>
 
-            <p><strong>Сообщения из группы не приходят в Teletype</strong></p>
-            <p style="color: var(--gray-500); margin-bottom: 16px;">Проверьте, что бот назначен <strong>администратором</strong> группы (этап Б, шаг 5). Без этого бот не получает сообщения. Также проверьте, что токен введён правильно.</p>
+            <details class="faq-item">
+                <summary>Ссылка для подключения Telegram не работает</summary>
+                <div class="faq-answer">
+                    <p>Ссылка действует <strong>только 3 часа</strong>. Если прошло больше времени — попросите администратора сгенерировать новую ссылку. Это делается за 30 секунд.</p>
+                </div>
+            </details>
 
-            <p><strong>Можно ли подключить несколько групп?</strong></p>
-            <p style="color: var(--gray-500); margin-bottom: 16px;">Да. Добавьте того же бота в другие группы и назначьте администратором. Все сообщения из всех групп будут приходить в Teletype через один канал.</p>
+            <details class="faq-item">
+                <summary>Код подтверждения Telegram не приходит</summary>
+                <div class="faq-answer">
+                    <p>1. Код приходит <strong>в сам Telegram</strong> (в приложение на телефоне), а не по SMS</p>
+                    <p>2. Проверьте раздел <strong>«Избранное»</strong> или служебные сообщения в Telegram</p>
+                    <p>3. Если код всё равно не пришёл — подождите 1-2 минуты и попробуйте ещё раз</p>
+                    <p>4. Попробуйте вариант с QR-кодом — он иногда работает надёжнее</p>
+                </div>
+            </details>
 
-            <p><strong>Что если кто-то удалит бота из группы?</strong></p>
-            <p style="color: var(--gray-500);">Сообщения из этой группы перестанут поступать в Teletype. Нужно будет заново добавить бота и назначить администратором.</p>
+            <details class="faq-item">
+                <summary>У меня нет приложения MAX — где скачать?</summary>
+                <div class="faq-answer">
+                    <p>MAX (ранее ICQ) — бесплатный мессенджер. Скачайте из:</p>
+                    <p>&#8226; <strong>iPhone:</strong> откройте App Store, в поиске напишите «MAX» и установите</p>
+                    <p>&#8226; <strong>Android:</strong> откройте Google Play или RuStore, найдите «MAX» и установите</p>
+                    <p>После установки войдите по номеру телефона.</p>
+                </div>
+            </details>
+
+            <details class="faq-item">
+                <summary>Сообщения из MAX/Telegram не появляются в Teletype</summary>
+                <div class="faq-answer">
+                    <p>1. Убедитесь, что канал подключён: в панели Teletype &rarr; <strong>Настройки</strong> &rarr; <strong>Каналы</strong> — должен быть зелёный индикатор</p>
+                    <p>2. Обновите страницу Teletype (нажмите F5 или Ctrl+R)</p>
+                    <p>3. Проверьте интернет-соединение</p>
+                    <p>4. Если проблема сохраняется — напишите в поддержку (контакты ниже)</p>
+                </div>
+            </details>
+
+            <details class="faq-item">
+                <summary>Можно ли работать в Teletype с телефона?</summary>
+                <div class="faq-answer">
+                    <p>Да! Teletype работает в браузере на телефоне. Откройте адрес <strong>marshalaitech.teletype.app</strong> в Safari или Chrome на телефоне. Также можно добавить ярлык на главный экран для быстрого доступа.</p>
+                </div>
+            </details>
+
+            <details class="faq-item">
+                <summary>Мои личные переписки в Telegram видны начальству?</summary>
+                <div class="faq-answer">
+                    <p>В Teletype видны <strong>только те диалоги, которые ведутся через подключённый канал</strong>. Если вы подключили рабочий Telegram-аккаунт — да, диалоги с этого аккаунта видны операторам проекта. Рекомендуем использовать <strong>отдельный рабочий аккаунт</strong>, если вы переживаете о приватности.</p>
+                </div>
+            </details>
         </div>
 
+        <!-- ====================================================== -->
         <!-- ===== ПОДДЕРЖКА ===== -->
+        <!-- ====================================================== -->
         <div class="support">
-            <h3>Нужна помощь?</h3>
-            <p>Если возникли сложности с подключением, напишите в Telegram:</p>
-            <p style="margin-top: 8px;"><a href="https://t.me/vf_marshal">@vf_marshal</a> — Виктория</p>
-            <p><a href="https://t.me/timzinin">@timzinin</a> — Тим (техподдержка)</p>
+            <h3>&#128591; Нужна помощь?</h3>
+            <p>Если что-то пошло не так — не переживайте! Напишите нам, и мы поможем:</p>
+            <div class="support-contacts">
+                <a href="https://t.me/vf_marshal" class="support-contact">
+                    &#128140; @vf_marshal — Виктория
+                </a>
+                <a href="https://t.me/timzinin" class="support-contact">
+                    &#128736;&#65039; @timzinin — Тим (техподдержка)
+                </a>
+            </div>
         </div>
     </div>
 
     <div class="footer">
         <p>Подготовлено для ТК «Маршал» &bull; 2026</p>
     </div>
+
+    <!-- ===== INTERACTIVE CHECKLIST ===== -->
+    <script>
+        // Save checklist state
+        document.querySelectorAll('.checklist input[type="checkbox"]').forEach((cb, i) => {
+            const key = 'marshal-onboard-' + i;
+            cb.checked = localStorage.getItem(key) === 'true';
+            cb.addEventListener('change', () => {
+                localStorage.setItem(key, cb.checked);
+            });
+        });
+    </script>
 </body>
 </html>
